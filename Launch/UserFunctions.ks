@@ -1,0 +1,250 @@
+// UserFunctions
+// houses all custom functions
+// Authors -  Jimmy
+//		   The Cheat - technicalReadOut function
+// Created - 7/22/2017
+
+// --- LISTS ---
+
+	LIST PARTS IN allParts.
+	LIST ENGINES IN myEngines.
+	set activeEnginesList to list().
+
+// --- END LISTS ---
+
+// --- FUNCTIONS ---
+
+	// Technical read out function
+	// useful information about craft during operation
+	// must call  thrustCalculations funcation for proper TWR readout
+	function technicalReadout 
+	{
+		
+		wait .01.
+		clearscreen.
+
+		print "Max thrust:      " + round(maxthrust,2).
+		print "Available Thrust:" + round(availablethrust,2).
+		
+		print "ship mass:       " + round(mass,2).
+		print "vertical speed:  " + round(verticalspeed,2).
+		print "Ground speed:    " + round(groundspeed,2).
+		print "Airspeed:        " + round(airspeed,2).
+		print "Altitude:        " + round(altitude,2).
+		print "Apoapsis:        " + round(apoapsis,2).
+		print "Periapsis:       " + round(periapsis,2).
+		print "status:          " + status.
+		print "throttle:        " + round(throttle,3).
+		print "eta to apoapsis: " + round(eta:apoapsis,1).
+		print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
+		print getDownRangeDistanceAct(100000).
+		print getAccentPitch(100000).
+	}
+	
+	function positionReadout
+	{
+		wait .01.
+		clearscreen.
+	
+		print "latitude:        " + round(latitude,2).
+		print "longitude:       " + round(longitude,2).
+		
+		
+			
+	}
+	
+	function deployOrbitalAnchor
+	{
+		parameter orbitAltitude.
+		
+		set anchor to startingPosition.
+		set anchor to LATLNG(anchor:lat,anchor:lng + convertMetersToDegrees(orbitAltitude)).
+		
+				
+		print anchor:terrainheight.
+		print anchor:distance.
+	}
+	
+	function getDistanceFromOrbitalAnchor
+	{
+		return anchor:distance.
+	}
+	
+	function bodyCircumference
+	{
+		return constant:pi * ship:body:radius * 2.
+	}
+	
+	function convertDegreesToMeters
+	{
+		parameter degrees.
+		return degrees * bodyCircumference() / 360.
+	}
+	
+	function convertMetersToDegrees
+	{	
+		parameter meters.
+		return 360 * meters / bodyCircumference().
+		
+	}
+
+
+	// Thrust Calculator
+	// Calculates maths based on ships position to determine current Thrust to Weight Ratios
+	function thrustCalculations 
+	{
+		set gravAcc to (constant:G * ship:body:mass) / (ship:body:radius ^ 2).
+		set gravAcc1 to (constant:G * ship:body:mass) / ((ship:body:radius + altitude) ^ 2).
+
+		declare global TWR to ((ship:availablethrust * gravAcc) / (mass * gravAcc ^ 2)) * throttle.
+		declare global actTWR to ((ship:availablethrust * gravAcc1) / (mass * gravAcc1 ^ 2)) * throttle.
+		declare global maxTWR to (ship:availablethrust * gravAcc1) / (mass * gravAcc1 ^ 2).
+	}
+
+
+	// List of Launch clamps
+	function getLaunchClamps
+	{
+		set launchClamps to list().
+		for clamp in allParts
+		{
+			if clamp:name = "launchClamp1" 
+			{
+				launchClamps:ADD(clamp).
+			}
+		}
+		return launchClamps.
+	}
+	
+	// release launch clamps
+	function releaseLaunchClamps
+	{
+		set x to 0.
+		set count to 1.
+		
+		// set true to skip the release of one launch clamp
+		set testLaunch to false.
+		
+		if testLaunch = true
+		{
+			set x to 1.
+		}
+		
+		for clamp in getLaunchClamps() 
+		{	
+			if count > x 
+			{
+				clamp:getModule("LaunchClamp"):doevent("release clamp").
+			}
+			set count to count + 1.	
+		}
+	}
+	
+	// creates list of first stage engines
+	function createFirstStage
+	{
+		set firstStageEngines to list().
+		for eng in myEngines
+		{		
+			if eng:children:length = 0
+			{
+				firstStageEngines:ADD(eng).
+			}
+		}	
+	}
+	
+	// upside down candlestick
+	function firstStageIgnition
+	{
+		for eng in firstStageEngines
+		{
+			eng:activate.		
+		}	
+		updateActiveEngines().
+	}
+	
+	
+	function startActiveEngines
+	{
+		for engine in activeEnginesList
+		{
+			engine:activate.
+		}
+	}
+	
+	function shutdownActiveEngines
+	{
+		for eng in activeEnginesList
+		{
+			eng:shutdown.
+		}
+	}
+	
+	function updateActiveEngines
+	{
+		activeEnginesList:clear().
+		myEngines:clear().
+		list engines in myEngines.
+		
+		for engine in myEngines
+		{
+			if engine:children:length = 0
+			{
+				if engine:flameout = false
+				{
+					activeEnginesList:ADD(engine).
+				}
+			}
+		}
+	}
+	
+	
+	
+	function createStartingPosition
+	{
+		set startingPosition to ship:geoposition.
+	}
+	
+	function getStartingPosition
+	{
+		return startingPosition.
+	}
+	
+	function getFirstStageEngines
+	{
+		return firstStageEngines.
+	}
+	
+	function getActiveEngines
+	{
+		return activeEnginesList.
+	}
+	
+	function getDownRangeDistanceAct
+	{
+			parameter orbitAltitude.
+			
+			set rangeDistance to sqrt(getDistanceFromOrbitalAnchor() ^ 2 - (altitude ^ 2)).	
+			set rangeDistance to orbitAltitude - rangeDistance.
+			return rangeDistance.
+	}
+	
+	function getAccentPitch 
+	{
+		parameter orbitAltitude.
+		
+		set accentPitch to (orbitAltitude^2 - (altitude + getDownRangeDistanceAct(100000)))/orbitAltitude^2*90.
+		
+		return accentPitch.
+	}
+	
+	function steerShip
+	{
+		// A heading expressed as HEADING(compass, pitch). This will aim 30 degrees above the horizon, due south:
+		LOCK STEERING TO HEADING(90, getAccentPitch(100000)).
+	
+	}
+	
+	
+	
+// --- END FUNCTIONS ---
