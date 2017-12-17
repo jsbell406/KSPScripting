@@ -5,7 +5,17 @@
 // Created - 7/22/2017
 
 
+// --- PARAMETERS ---
 parameter userDefinedOrbitalHeight.
+
+
+// --- GLOBALS ---
+
+
+	// set test launch here
+	set testLaunch to false.
+
+
 // --- LISTS ---
 
 	LIST PARTS IN allParts.
@@ -39,9 +49,10 @@ parameter userDefinedOrbitalHeight.
 		//print "throttle:        " + round(throttle,3).
 		//print "eta to apoapsis: " + round(eta:apoapsis,1).
 		//print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
-		print "Downrange Distance:	" + getDownRangeDistanceAct(userDefinedOrbitalHeight).
-		print "Ascent Pitch:	" + getAscentPitch(userDefinedOrbitalHeight).
-		print "Distance from Anchor:	" + getDistanceFromOrbitalAnchor.
+		print "Downrange Distance: " + getDownRangeDistanceAct(userDefinedOrbitalHeight).
+		print "Ascent Pitch: " + getAscentPitch(userDefinedOrbitalHeight).
+		print "Distance from Anchor " + getDistanceFromOrbitalAnchor.
+		print "Starting Distance " + getStartingDistanceFromOrbitalAnchor.
 		//positionReadout.
 		//getAnchorPosition.
 	}
@@ -64,18 +75,35 @@ parameter userDefinedOrbitalHeight.
 		
 		set anchor to startingPosition.
 		set anchor to LATLNG(anchor:lat,anchor:lng + convertMetersToDegrees(orbitAltitude)).
+		set distance to Round(anchor:distance,2).
 		
+		
+		setStartingDistanceFromOrbitalAnchor(distance).
 				
 		print anchor:terrainheight.
-		print anchor:distance.
+		print distance.
 	}
 	
 	//For testing purposes
 	function getAnchorPosition
 	{
-		print "Anchor Latitude:" + round(anchor:lat,2).
-		print "Anchor Longitude:" + round(anchor:lng,2).
+		print "Anchor Latitude: " + round(anchor:lat,2).
+		print "Anchor Longitude: " + round(anchor:lng,2).
 		
+	}
+	
+	function setStartingDistanceFromOrbitalAnchor
+	{
+		parameter distance.
+		
+		set startingDistance to distance.
+		
+		
+	}
+	
+	function getStartingDistanceFromOrbitalAnchor
+	{
+		return startingDistance.
 	}
 	
 	function getDistanceFromOrbitalAnchor
@@ -134,9 +162,7 @@ parameter userDefinedOrbitalHeight.
 	{
 		set x to 0.
 		set count to 1.
-		
-		// set true to skip the release of one launch clamp
-		set testLaunch to false.
+	
 		
 		if testLaunch = true
 		{
@@ -237,7 +263,7 @@ parameter userDefinedOrbitalHeight.
 	{
 			parameter orbitAltitude.
 			
-			set rangeDistance to sqrt(getDistanceFromOrbitalAnchor() ^ 2 - (altitude ^ 2)).	
+			set rangeDistance to sqrt(startingDistance ^ 2 - (altitude ^ 2)).	
 			set rangeDistance to orbitAltitude - rangeDistance.
 			return rangeDistance.
 	}
@@ -245,16 +271,20 @@ parameter userDefinedOrbitalHeight.
 	function getAscentPitch 
 	{
 		parameter orbitAltitude.
-		
-		set ascentPitch to orbitAltitude^2 - (altitude + getDownRangeDistanceAct(orbitAltitude))/orbitAltitude^2*90.
+
+		set orbitAlt to Round(getDistanceFromOrbitalAnchor(),2).
+		set ascentPitch to (orbitAltitude^2 - (altitude + getDownRangeDistanceAct(orbitAlt)))/orbitAltitude^2*90.
+			
 		return ascentPitch.
 	}
 	
 	function steerShip
 	{
-
+ 
+	
+		set accentAngle to getAscentPitch(userDefinedOrbitalHeight).
 		// A heading expressed as HEADING(compass, pitch).
-		LOCK STEERING TO HEADING(90, getAscentPitch(userDefinedOrbitalHeight)).
+		LOCK STEERING TO HEADING(90, 70).
 
 	
 	}
