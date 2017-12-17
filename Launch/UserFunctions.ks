@@ -26,28 +26,31 @@
 		print "Max thrust:      " + round(maxthrust,2).
 		print "Available Thrust:" + round(availablethrust,2).
 		
-		print "ship mass:       " + round(mass,2).
-		print "vertical speed:  " + round(verticalspeed,2).
-		print "Ground speed:    " + round(groundspeed,2).
-		print "Airspeed:        " + round(airspeed,2).
-		print "Altitude:        " + round(altitude,2).
-		print "Apoapsis:        " + round(apoapsis,2).
-		print "Periapsis:       " + round(periapsis,2).
-		print "status:          " + status.
-		print "throttle:        " + round(throttle,3).
-		print "eta to apoapsis: " + round(eta:apoapsis,1).
-		print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
-		print getDownRangeDistanceAct(100000).
-		print getAccentPitch(100000).
+		//print "ship mass:       " + round(mass,2).
+		//print "vertical speed:  " + round(verticalspeed,2).
+		//print "Ground speed:    " + round(groundspeed,2).
+		//print "Airspeed:        " + round(airspeed,2).
+		//print "Altitude:        " + round(altitude,2).
+		//print "Apoapsis:        " + round(apoapsis,2).
+		//print "Periapsis:       " + round(periapsis,2).
+		//print "status:          " + status.
+		//print "throttle:        " + round(throttle,3).
+		//print "eta to apoapsis: " + round(eta:apoapsis,1).
+		//print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
+		print "Downrange Distance:" + getDownRangeDistanceAct(100000).
+		print "Ascent Pitch:" + getAscentPitch(100000).
+		print "Distance from Anchor" + getDistanceFromOrbitalAnchor.
+		//positionReadout.
+		//getAnchorPosition.
 	}
 	
 	function positionReadout
 	{
 		wait .01.
-		clearscreen.
+		//clearscreen.
 	
-		print "latitude:        " + round(latitude,2).
-		print "longitude:       " + round(longitude,2).
+		print "Current Latitude:        " + round(latitude,2).
+		print "Current Longitude:       " + round(longitude,2).
 		
 		
 			
@@ -63,6 +66,14 @@
 				
 		print anchor:terrainheight.
 		print anchor:distance.
+	}
+	
+	//For testing purposes
+	function getAnchorPosition
+	{
+		print "Anchor Latitude:" + round(anchor:lat,2).
+		print "Anchor Longitude:" + round(anchor:lng,2).
+		
 	}
 	
 	function getDistanceFromOrbitalAnchor
@@ -229,19 +240,19 @@
 			return rangeDistance.
 	}
 	
-	function getAccentPitch 
+	function getAscentPitch 
 	{
 		parameter orbitAltitude.
 		
-		set accentPitch to (orbitAltitude^2 - (altitude + getDownRangeDistanceAct(100000)))/orbitAltitude^2*90.
+		set ascentPitch to (orbitAltitude^2 - (altitude + getDownRangeDistanceAct(100000)))/orbitAltitude^2*90.
 		
-		return accentPitch.
+		return ascentPitch.
 	}
 	
 	function steerShip
 	{
 		// A heading expressed as HEADING(compass, pitch). This will aim 30 degrees above the horizon, due south:
-		LOCK STEERING TO HEADING(90, getAccentPitch(100000)).
+		LOCK STEERING TO HEADING(90, getAscentPitch(100000)).
 	
 	}
 	
