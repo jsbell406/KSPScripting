@@ -7,13 +7,6 @@ RUN ONCE PositionFunctions.ks(orbitalHeight).
 //COPYPATH("0:/new.KS","").
 createStartingPosition().
 deployOrbitalAnchor(orbitalHeight).
-print getDownRangeDistanceAct(orbitalHeight).
-
-
-
-
-
-
 thrustCalculations().
 getLaunchClamps().
 createFirstStage().
