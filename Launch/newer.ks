@@ -8,25 +8,9 @@ RUN ONCE EngineFunctions.ks.
 //COPYPATH("0:/new.KS","").
 createStartingPosition().
 deployOrbitalAnchor(orbitalHeight).
-print getDownRangeDistanceAct(orbitalHeight).
+//print getDownRangeDistanceAct(orbitalHeight).
 
 //Temporary function because James is annoying
-function adjustThrottle
-{
-	parameter targetTWR.
-	set newThrottle to calculateThrottle.
-	until actualTWR < targetTWR {
-		set newThrottle to newThrottle - 0.05.
-		wait 0.01.
-	}
-}
-
-function calculateThrottle
-{
-	set thrustCurrent to (VESSEL:AVAILABLETHRUST / VESSEL:MAXTHRUST).
-	
-	return thrustCurrent.
-}
 
 
 

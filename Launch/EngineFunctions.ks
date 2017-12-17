@@ -77,3 +77,24 @@
 	{
 		return activeEnginesList.
 	}
+	
+	function adjustThrottle
+	{
+		parameter targetTWR.
+		set newThrottle to calculateThrottle.
+		
+		until actualTWR < targetTWR 
+		{
+			set newThrottle to newThrottle - 0.05.
+			wait 0.01.
+		}
+		return newThrottle.
+	}
+
+function calculateThrottle
+{
+	set VESSEL to SHIP.
+
+	set thrustCurrent to (VESSEL:AVAILABLETHRUST / VESSEL:MAXTHRUST).
+	return thrustCurrent.
+}
