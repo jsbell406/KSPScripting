@@ -24,11 +24,11 @@ wait 0.05.
 releaseLaunchClamps().
 
 	
-UNTIL apoapsis >= (orbitalHeight * .95)
+UNTIL apoapsis >= (orbitalHeight * 1.05)
 { 
 	technicalReadout().
 	//positionReadout().
-	steerShip().
+	steerShipIf().
 
 }
 

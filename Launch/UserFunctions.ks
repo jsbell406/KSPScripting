@@ -247,7 +247,6 @@ parameter userDefinedOrbitalHeight.
 		parameter orbitAltitude.
 		
 		set ascentPitch to orbitAltitude^2 - (altitude + getDownRangeDistanceAct(orbitAltitude))/orbitAltitude^2*90.
-			
 		return ascentPitch.
 	}
 	
@@ -259,6 +258,22 @@ parameter userDefinedOrbitalHeight.
 
 	
 	}
+	
+	function steerShipIf
+	{
+		parameter orbitAltitude.
+		until downRangeDistance(orbitAltitude) <= orbitAltitude
+		{
+			if downRangeDistance(orbitAltitude) > orbitAltitude 
+			{
+				wait 0.5.
+				set ifAscentPitch to ifAscentPitch - 0.1.
+			}
+			
+		}
+	}
+	
+	
 	
 	//Returns manuever burn time based on parameter dv
 	//dv should be delta-V necessary to execute manuever
