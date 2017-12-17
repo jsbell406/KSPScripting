@@ -1,3 +1,4 @@
+// a comment 
 CLEARSCREEN. 
 RUN ONCE UserFunctions.ks.
 PRINT "BEGIN COUNTDOWN: ".
