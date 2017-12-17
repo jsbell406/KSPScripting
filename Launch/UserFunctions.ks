@@ -288,7 +288,27 @@ parameter userDefinedOrbitalHeight.
 
 	
 	}
+
 	
+	
+	//Returns manuever burn time based on parameter dv
+	//dv should be delta-V necessary to execute manuever
+	//
+	function getManueverTime
+	{
+	parameter dv.
+	
+	updateActiveEngines ().
+	local engT is activeEnginesList:MAXTHRUST * 1000.
+	local vesMass is SHIP:MASS * 1000.
+	local e is CONSTANT():E.
+	local engISP is activeEnginesList:ISP.
+	local g is (constant:G * ship:body:mass) / ((ship:body:radius + altitude) ^ 2).
+	
+	return g * vesMass * engISP * (1 -  e^(-dv/(g*engISP))) / engT.
+	}
+	
+		
 	function steerShipIf
 	{
 		parameter orbitAltitude.
@@ -310,25 +330,6 @@ parameter userDefinedOrbitalHeight.
 		for each eng in ActiveEnginesList(){
 			
 		}
-	}
-	
-	
-	
-	//Returns manuever burn time based on parameter dv
-	//dv should be delta-V necessary to execute manuever
-	//
-	function getManueverTime
-	{
-	parameter dv.
-	
-	updateActiveEngines ().
-	local engT is activeEnginesList:MAXTHRUST * 1000.
-	local vesMass is SHIP:MASS * 1000.
-	local e is CONSTANT():E.
-	local engISP is activeEnginesList:ISP.
-	local g is (constant:G * ship:body:mass) / ((ship:body:radius + altitude) ^ 2).
-	
-	return g * vesMass * engISP * (1 -  e^(-dv/(g*engISP))) / engT.
 	}
 	
 	
