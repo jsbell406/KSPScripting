@@ -262,13 +262,22 @@ parameter userDefinedOrbitalHeight.
 	function steerShipIf
 	{
 		parameter orbitAltitude.
-		until downRangeDistance(orbitAltitude) <= orbitAltitude
+		
+		until getDownRangeDistanceAct(orbitAltitude) <= orbitAltitude
 		{
 			if downRangeDistance(orbitAltitude) > orbitAltitude 
 			{
 				wait 0.5.
 				set ifAscentPitch to ifAscentPitch - 0.1.
 			}
+			
+		}
+	}
+	
+	function TWRActual
+	{
+		updateActiveEngines().
+		for each eng in ActiveEnginesList(){
 			
 		}
 	}

@@ -28,7 +28,7 @@ UNTIL apoapsis >= (orbitalHeight * 1.05)
 { 
 	technicalReadout().
 	//positionReadout().
-	steerShipIf().
+	steerShipIf(orbitalHeight).
 
 }
 
