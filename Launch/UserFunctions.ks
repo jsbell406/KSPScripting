@@ -22,7 +22,7 @@ parameter userDefinedOrbitalHeight.
 	function technicalReadout 
 	{
 		
-		wait .01.
+		wait .1.
 		clearscreen.
 
 		print "Max thrust:      " + round(maxthrust,2).
@@ -39,9 +39,9 @@ parameter userDefinedOrbitalHeight.
 		//print "throttle:        " + round(throttle,3).
 		//print "eta to apoapsis: " + round(eta:apoapsis,1).
 		//print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
-		print "Downrange Distance:" + getDownRangeDistanceAct(userDefinedOrbitalHeight).
-		print "Ascent Pitch:" + getAscentPitch(userDefinedOrbitalHeight).
-		print "Distance from Anchor" + getDistanceFromOrbitalAnchor.
+		print "Downrange Distance:	" + getDownRangeDistanceAct(userDefinedOrbitalHeight).
+		print "Ascent Pitch:	" + getAscentPitch(userDefinedOrbitalHeight).
+		print "Distance from Anchor:	" + getDistanceFromOrbitalAnchor.
 		//positionReadout.
 		//getAnchorPosition.
 	}
@@ -239,10 +239,6 @@ parameter userDefinedOrbitalHeight.
 			
 			set rangeDistance to sqrt(getDistanceFromOrbitalAnchor() ^ 2 - (altitude ^ 2)).	
 			set rangeDistance to orbitAltitude - rangeDistance.
-			if rangeDistance < 0 
-			{
-				set rangeDistance to 0.
-			}
 			return rangeDistance.
 	}
 	
@@ -250,7 +246,7 @@ parameter userDefinedOrbitalHeight.
 	{
 		parameter orbitAltitude.
 		
-		set ascentPitch to (orbitAltitude^2 - (altitude + getDownRangeDistanceAct(userDefinedOrbitalHeight)))/orbitAltitude^2*90.
+		set ascentPitch to orbitAltitude^2 - (altitude + getDownRangeDistanceAct(orbitAltitude))/orbitAltitude^2*90.
 			
 		return ascentPitch.
 	}

@@ -1,4 +1,6 @@
 
+//When running script, enter 'run josh.ks(#)' where # is desired orbit.
+
 parameter orbitalHeight.
 
 //Easier file copying
