@@ -250,24 +250,22 @@ parameter userDefinedOrbitalHeight.
 	{
 		parameter orbitAltitude.
 		
-<<<<<<< HEAD
 		set ascentPitch to (orbitAltitude^2 - (altitude + getDownRangeDistanceAct(userDefinedOrbitalHeight)))/orbitAltitude^2*90.
-=======
-		set ascentPitch to (orbitAltitude^2 - (altitude + getDownRangeDistanceAct(100000))^2)/orbitAltitude^2*90.
->>>>>>> e439be883fad89842584b9a3268e3a3ed4970721
+		set ascentPitch to (orbitAltitude^2 - (altitude + getDownRangeDistanceAct(userDefinedOrbitalHeight))^2)/orbitAltitude^2*90.
+
 		
 		return ascentPitch.
 	}
 	
 	function steerShip
 	{
-<<<<<<< HEAD
+
 		// A heading expressed as HEADING(compass, pitch). This will aim 30 degrees above the horizon, due south:
 		LOCK STEERING TO HEADING(90, getAscentPitch(userDefinedOrbitalHeight)).
-=======
+
 		// A heading expressed as HEADING(compass, pitch).
-		LOCK STEERING TO HEADING(90, getAscentPitch(100000)).
->>>>>>> e439be883fad89842584b9a3268e3a3ed4970721
+		LOCK STEERING TO HEADING(90, getAscentPitch(userDefinedOrbitalHeight)).
+
 	
 	}
 	
