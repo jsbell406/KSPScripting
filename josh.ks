@@ -1,4 +1,6 @@
 
+
+
 //Easier file copying
 
 
@@ -8,7 +10,7 @@ set files to list("Launch/new.ks","Launch/userfunctions.ks").
 
 For file in files
 {
-copypath ("0:/KSPScripting/"+file,"1:").
+copypath ("0:/"+file,"1:").
 print file + "...".
 print "Loaded.".
 wait 1.

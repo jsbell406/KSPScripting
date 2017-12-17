@@ -4,6 +4,8 @@
 //		   The Cheat - technicalReadOut function
 // Created - 7/22/2017
 
+
+parameter userDefinedOrbitalHeight.
 // --- LISTS ---
 
 	LIST PARTS IN allParts.
@@ -37,8 +39,8 @@
 		//print "throttle:        " + round(throttle,3).
 		//print "eta to apoapsis: " + round(eta:apoapsis,1).
 		//print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
-		print "Downrange Distance:" + getDownRangeDistanceAct(100000).
-		print "Ascent Pitch:" + getAscentPitch(100000).
+		print "Downrange Distance:" + getDownRangeDistanceAct(userDefinedOrbitalHeight).
+		print "Ascent Pitch:" + getAscentPitch(userDefinedOrbitalHeight).
 		print "Distance from Anchor" + getDistanceFromOrbitalAnchor.
 		//positionReadout.
 		//getAnchorPosition.
@@ -244,7 +246,7 @@
 	{
 		parameter orbitAltitude.
 		
-		set ascentPitch to (orbitAltitude^2 - (altitude + getDownRangeDistanceAct(100000)))/orbitAltitude^2*90.
+		set ascentPitch to (orbitAltitude^2 - (altitude + getDownRangeDistanceAct(userDefinedOrbitalHeight)))/orbitAltitude^2*90.
 		
 		return ascentPitch.
 	}
@@ -252,7 +254,7 @@
 	function steerShip
 	{
 		// A heading expressed as HEADING(compass, pitch). This will aim 30 degrees above the horizon, due south:
-		LOCK STEERING TO HEADING(90, getAscentPitch(100000)).
+		LOCK STEERING TO HEADING(90, getAscentPitch(userDefinedOrbitalHeight)).
 	
 	}
 	

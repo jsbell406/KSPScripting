@@ -1,12 +1,12 @@
 CLEARSCREEN. 
-
-RUN ONCE UserFunctions.ks.
+parameter orbitalHeight.
+RUN ONCE UserFunctions.ks(orbitalHeight).
 SWITCH TO 1.
-COPYPATH("0:/UserFunctions.KS","").
-COPYPATH("0:/new.KS","").
+//COPYPATH("0:/UserFunctions.KS","").
+//COPYPATH("0:/new.KS","").
 createStartingPosition().
-deployOrbitalAnchor(100000).
-print getDownRangeDistanceAct(100000).
+deployOrbitalAnchor(orbitalHeight).
+print getDownRangeDistanceAct(orbitalHeight).
 
 
 
