@@ -197,13 +197,5 @@ parameter userDefinedOrbitalHeight.
 		}
 	}
 	
-	function TWRActual
-	{
-		updateActiveEngines().
-		for each eng in ActiveEnginesList(){
-			
-		}
-	}
-	
 	
 // --- END FUNCTIONS ---
