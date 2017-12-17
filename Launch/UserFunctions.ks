@@ -13,7 +13,7 @@ parameter userDefinedOrbitalHeight.
 
 
 	// set test launch here
-	set testLaunch to true.
+	set testLaunch to false.
 
 
 // --- LISTS ---
@@ -49,9 +49,10 @@ parameter userDefinedOrbitalHeight.
 		//print "throttle:        " + round(throttle,3).
 		//print "eta to apoapsis: " + round(eta:apoapsis,1).
 		//print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
-		print "Downrange Distance:" + getDownRangeDistanceAct(userDefinedOrbitalHeight).
-		print "Ascent Pitch:" + getAscentPitch(userDefinedOrbitalHeight).
-		print "Distance from Anchor" + getDistanceFromOrbitalAnchor.
+		print "Downrange Distance: " + getDownRangeDistanceAct(userDefinedOrbitalHeight).
+		print "Ascent Pitch: " + getAscentPitch(userDefinedOrbitalHeight).
+		print "Distance from Anchor " + getDistanceFromOrbitalAnchor.
+		print "Starting Distance " + getStartingDistanceFromOrbitalAnchor.
 		//positionReadout.
 		//getAnchorPosition.
 	}
@@ -74,19 +75,20 @@ parameter userDefinedOrbitalHeight.
 		
 		set anchor to startingPosition.
 		set anchor to LATLNG(anchor:lat,anchor:lng + convertMetersToDegrees(orbitAltitude)).
+		set distance to Round(anchor:distance,2).
 		
 		
-		setStartingDistanceFromOrbitalAnchor(anchor:distance).
+		setStartingDistanceFromOrbitalAnchor(distance).
 				
 		print anchor:terrainheight.
-		print anchor:distance.
+		print distance.
 	}
 	
 	//For testing purposes
 	function getAnchorPosition
 	{
-		print "Anchor Latitude:" + round(anchor:lat,2).
-		print "Anchor Longitude:" + round(anchor:lng,2).
+		print "Anchor Latitude: " + round(anchor:lat,2).
+		print "Anchor Longitude: " + round(anchor:lng,2).
 		
 	}
 	
@@ -94,12 +96,14 @@ parameter userDefinedOrbitalHeight.
 	{
 		parameter distance.
 		
+		set startingDistance to distance.
+		
 		
 	}
 	
 	function getStartingDistanceFromOrbitalAnchor
 	{
-		
+		return startingDistance.
 	}
 	
 	function getDistanceFromOrbitalAnchor
@@ -259,7 +263,7 @@ parameter userDefinedOrbitalHeight.
 	{
 			parameter orbitAltitude.
 			
-			set rangeDistance to sqrt(getDistanceFromOrbitalAnchor() ^ 2 - (altitude ^ 2)).	
+			set rangeDistance to sqrt(startingDistance ^ 2 - (altitude ^ 2)).	
 			set rangeDistance to orbitAltitude - rangeDistance.
 			if rangeDistance < 0 
 			{
