@@ -57,17 +57,6 @@ parameter userDefinedOrbitalHeight.
 		//getAnchorPosition.
 	}
 	
-	function positionReadout
-	{
-		wait .01.
-		//clearscreen.
-	
-		print "Current Latitude:        " + round(latitude,2).
-		print "Current Longitude:       " + round(longitude,2).
-		
-		
-			
-	}
 	
 	function deployOrbitalAnchor
 	{
@@ -79,37 +68,11 @@ parameter userDefinedOrbitalHeight.
 		
 		
 		setStartingDistanceFromOrbitalAnchor(distance).
-				
-		print anchor:terrainheight.
-		print distance.
+			
 	}
 	
-	//For testing purposes
-	function getAnchorPosition
-	{
-		print "Anchor Latitude: " + round(anchor:lat,2).
-		print "Anchor Longitude: " + round(anchor:lng,2).
-		
-	}
 	
-	function setStartingDistanceFromOrbitalAnchor
-	{
-		parameter distance.
-		
-		set startingDistance to distance.
-		
-		
-	}
-	
-	function getStartingDistanceFromOrbitalAnchor
-	{
-		return startingDistance.
-	}
-	
-	function getDistanceFromOrbitalAnchor
-	{
-		return anchor:distance.
-	}
+
 	
 	function bodyCircumference
 	{
@@ -239,15 +202,7 @@ parameter userDefinedOrbitalHeight.
 	
 	
 	
-	function createStartingPosition
-	{
-		set startingPosition to ship:geoposition.
-	}
 	
-	function getStartingPosition
-	{
-		return startingPosition.
-	}
 	
 	function getFirstStageEngines
 	{
@@ -259,14 +214,7 @@ parameter userDefinedOrbitalHeight.
 		return activeEnginesList.
 	}
 	
-	function getDownRangeDistanceAct
-	{
-			parameter orbitAltitude.
-			
-			set rangeDistance to sqrt(startingDistance ^ 2 - (altitude ^ 2)).	
-			set rangeDistance to orbitAltitude - rangeDistance.
-			return rangeDistance.
-	}
+	
 	
 	function getAscentPitch 
 	{
