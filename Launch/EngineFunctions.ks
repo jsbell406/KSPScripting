@@ -90,10 +90,12 @@
 	
 	function adjustThrottle
 	{
+		thrustCalculations().
+		
 		parameter targetTWR.
 		set newThrottle to calculateThrottle.
 		
-		until actualTWR < targetTWR 
+		until actTWR <= targetTWR 
 		{
 			set newThrottle to newThrottle - 0.05.
 			wait 0.01.
