@@ -10,7 +10,7 @@ parameter orbitAlt.
 
 // --- FUNCTIONS ---
 
-function bodyCircumference
+	function bodyCircumference
 	{
 		return constant:pi * ship:body:radius * 2.
 	}
