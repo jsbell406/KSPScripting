@@ -1,6 +1,6 @@
 // --- PARAMETERS ---
 
-parameter orbitAlt
+parameter orbitAlt.
 
 
 
@@ -9,6 +9,20 @@ parameter orbitAlt
 // --- LISTS ---
 
 // --- FUNCTIONS ---
+
+	function deployOrbitalAnchor
+	{
+		parameter orbitAltitude.
+		
+		set anchor to startingPosition.
+		set anchor to LATLNG(anchor:lat,anchor:lng + convertMetersToDegrees(orbitAltitude)).
+		set distance to Round(anchor:distance,2).
+		
+		
+		setStartingDistanceFromOrbitalAnchor(distance).
+		
+	}
+			
 
 
 	function getAnchorPosition
@@ -59,7 +73,7 @@ parameter orbitAlt
 	
 	function getDownRangeDistanceAct
 	{
-			parameter orbitAltitude.
+			parameter orbitAlt.
 			
 			set rangeDistance to sqrt(startingDistance ^ 2 - (altitude ^ 2)).	
 			set rangeDistance to orbitAltitude - rangeDistance.

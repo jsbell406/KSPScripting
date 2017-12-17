@@ -24,6 +24,9 @@ parameter userDefinedOrbitalHeight.
 // --- END LISTS ---
 
 // --- FUNCTIONS ---
+	RUN ONCE PositionFunctions.ks(userDefinedOrbitalHeight).
+	RUN ONCE EngineFunctions.ks.
+	
 
 	// Technical read out function
 	// useful information about craft during operation
@@ -55,22 +58,6 @@ parameter userDefinedOrbitalHeight.
 		//positionReadout.
 		//getAnchorPosition.
 	}
-	
-	
-	function deployOrbitalAnchor
-	{
-		parameter orbitAltitude.
-		
-		set anchor to startingPosition.
-		set anchor to LATLNG(anchor:lat,anchor:lng + convertMetersToDegrees(orbitAltitude)).
-		set distance to Round(anchor:distance,2).
-		
-		
-		setStartingDistanceFromOrbitalAnchor(distance).
-			
-	}
-	
-	
 
 	
 	function bodyCircumference
