@@ -1,10 +1,15 @@
 // --- PARAMETERS ---
 
+parameter orbitAlt
+
+
+
 // --- GLOBALS ---
 
 // --- LISTS ---
 
 // --- FUNCTIONS ---
+
 
 	function getAnchorPosition
 	{
