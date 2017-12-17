@@ -1,12 +1,4 @@
-// --- IMPORTS ---
-
-	
-	RUN ONCE PositionFunctions.ks(userDefinedOrbitalHeight).
-	RUN ONCE LaunchFunctions.ks.
-	RUN ONCE ShipFunctions.ks.
-	RUN ONCE MathFunctions.ks.
-	RUN ONCE EngineFunctions.ks.
-	
+parameter orbitAlt.
 	
 
 
@@ -33,8 +25,8 @@
 		//print "throttle:        " + round(throttle,3).
 		//print "eta to apoapsis: " + round(eta:apoapsis,1).
 		//print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
-		print "Downrange Distance: " + getDownRangeDistanceAct(userDefinedOrbitalHeight).
-		print "Ascent Pitch: " + getAscentPitch(userDefinedOrbitalHeight).
+		print "Downrange Distance: " + getDownRangeDistanceAct(orbitAlt).
+		print "Ascent Pitch: " + getAscentPitch(orbitAlt).
 		print "Distance from Anchor " + getDistanceFromOrbitalAnchor().
 		print "Starting Distance " + getStartingDistanceFromOrbitalAnchor().
 		//positionReadout.
@@ -46,7 +38,7 @@
 	{
 		parameter orbitAltitude.
 
-		set orbitAlt to Round(getDistanceFromOrbitalAnchor(),2).
+		set orbitAltitude to Round(getDistanceFromOrbitalAnchor(),2).
 		set ascentPitch to (orbitAltitude^2 - (altitude + getDownRangeDistanceAct(orbitAlt)))/orbitAltitude^2*90.
 			
 		return ascentPitch.
@@ -55,7 +47,7 @@
 	function steerShip
 	{
 
-		set accentAngle to getAscentPitch(userDefinedOrbitalHeight).
+		set accentAngle to getAscentPitch(orbitAlt).
 		// A heading expressed as HEADING(compass, pitch).
 		LOCK STEERING TO HEADING(90, 70).
 

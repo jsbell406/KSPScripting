@@ -2,10 +2,10 @@ CLEARSCREEN.
 parameter orbitalHeight.
 // --- IMPORTS ---
 	RUN ONCE PositionFunctions.ks(orbitalHeight).
-	RUN ONCE LaunchFunctions.ks.
-	RUN ONCE ShipFunctions.ks.
-	RUN ONCE MathFunctions.ks.
-	RUN ONCE EngineFunctions.ks.
+	RUN ONCE LaunchFunctions.ks(orbitalHeight).
+	RUN ONCE ShipFunctions.ks(orbitalHeight).
+	RUN ONCE MathFunctions.ks(orbitalHeight).
+	RUN ONCE EngineFunctions.ks(orbitalHeight).
 	
 //SWITCH TO 1.
 //COPYPATH("0:/UserFunctions.KS","").
