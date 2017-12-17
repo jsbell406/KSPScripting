@@ -7,7 +7,7 @@ parameter orbitalHeight.
 
 
 //Set to path of file needing to be copied
-set files to list("Launch/newer.ks","Launch/userfunctions.ks","Launch/positionfunctions.ks","Launch/enginefunctions.ks").
+set files to list("Launch/new.ks","Launch/userfunctions.ks","Launch/positionfunctions.ks","Launch/enginefunctions.ks").
 
 
 For file in files
@@ -18,4 +18,4 @@ print "Loaded.".
 wait 1.
 }.
 switch to 1.
-run newer.ks(orbitalHeight).
+run new.ks(orbitalHeight).

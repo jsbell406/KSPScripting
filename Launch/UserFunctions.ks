@@ -53,8 +53,8 @@ parameter userDefinedOrbitalHeight.
 		//print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
 		print "Downrange Distance: " + getDownRangeDistanceAct(userDefinedOrbitalHeight).
 		print "Ascent Pitch: " + getAscentPitch(userDefinedOrbitalHeight).
-		print "Distance from Anchor " + getDistanceFromOrbitalAnchor.
-		print "Starting Distance " + getStartingDistanceFromOrbitalAnchor.
+		print "Distance from Anchor " + getDistanceFromOrbitalAnchor().
+		print "Starting Distance " + getStartingDistanceFromOrbitalAnchor().
 		//positionReadout.
 		//getAnchorPosition.
 	}
