@@ -237,6 +237,10 @@
 			
 			set rangeDistance to sqrt(getDistanceFromOrbitalAnchor() ^ 2 - (altitude ^ 2)).	
 			set rangeDistance to orbitAltitude - rangeDistance.
+			if rangeDistance < 0 
+			{
+				set rangeDistance to 0.
+			}
 			return rangeDistance.
 	}
 	
@@ -244,14 +248,14 @@
 	{
 		parameter orbitAltitude.
 		
-		set ascentPitch to (orbitAltitude^2 - (altitude + getDownRangeDistanceAct(100000)))/orbitAltitude^2*90.
+		set ascentPitch to (orbitAltitude^2 - (altitude + getDownRangeDistanceAct(100000))^2)/orbitAltitude^2*90.
 		
 		return ascentPitch.
 	}
 	
 	function steerShip
 	{
-		// A heading expressed as HEADING(compass, pitch). This will aim 30 degrees above the horizon, due south:
+		// A heading expressed as HEADING(compass, pitch).
 		LOCK STEERING TO HEADING(90, getAscentPitch(100000)).
 	
 	}
