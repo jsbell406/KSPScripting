@@ -244,7 +244,21 @@
 		LOCK STEERING TO HEADING(90, getAccentPitch(100000)).
 	
 	}
+	//Returns manuever burn time based on parameter dv
+	//dv should be delta-V necessary to execute manuever
+	FUNCTION MANTIME {
+	parameter dv.
 	
+	list ENGINES in eng.
+	//Needs to be updated to FOR EACH
+	local engT is eng[0]:MAXTHRUST * 1000.
+	local vesMass is SHIP:MASS * 1000.
+	local e is CONSTANT():E.
+	local engISP is eng[0]:ISP.
+	local g is (constant:G * ship:body:mass) / ((ship:body:radius + altitude) ^ 2).
+	
+	return g * vesMass * engISP * (1 -  e^(-dv/(g*engISP))) / engT.
+	}
 	
 	
 // --- END FUNCTIONS ---
