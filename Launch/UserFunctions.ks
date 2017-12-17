@@ -156,13 +156,11 @@ parameter userDefinedOrbitalHeight.
 	
 	function steerShip
 	{
- 
-	
+
 		set accentAngle to getAscentPitch(userDefinedOrbitalHeight).
 		// A heading expressed as HEADING(compass, pitch).
 		LOCK STEERING TO HEADING(90, 70).
 
-	
 	}
 
 	
@@ -196,7 +194,6 @@ parameter userDefinedOrbitalHeight.
 				wait 0.5.
 				set ifAscentPitch to ifAscentPitch - 0.1.
 			}
-			
 		}
 	}
 	
