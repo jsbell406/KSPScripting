@@ -73,7 +73,7 @@ parameter orbitAlt.
 	
 	function getDownRangeDistanceAct
 	{
-			parameter orbitAlt.
+			parameter orbitAltitude.
 			
 			set rangeDistance to sqrt(startingDistance ^ 2 - (altitude ^ 2)).	
 			set rangeDistance to orbitAltitude - rangeDistance.
