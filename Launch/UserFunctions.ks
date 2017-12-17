@@ -247,6 +247,7 @@
 	
 	//Returns manuever burn time based on parameter dv
 	//dv should be delta-V necessary to execute manuever
+	//
 	function getManueverTime
 	{
 	parameter dv.
