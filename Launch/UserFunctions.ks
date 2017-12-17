@@ -141,9 +141,6 @@ parameter userDefinedOrbitalHeight.
 		}
 	}
 	
-	
-	
-	
 	function getAscentPitch 
 	{
 		parameter orbitAltitude.
