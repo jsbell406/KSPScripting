@@ -8,7 +8,23 @@ createStartingPosition().
 deployOrbitalAnchor(orbitalHeight).
 print getDownRangeDistanceAct(orbitalHeight).
 
+//Temporary function because James is annoying
+function adjustThrottle
+{
+	parameter targetTWR.
+	set newThrottle to calculateThrottle.
+	until actualTWR < targetTWR {
+		set newThrottle to newThrottle - 0.05.
+		wait 0.01.
+	}
+}
 
+function calculateThrottle
+{
+	set thrustCurrent to (VESSEL:AVAILABLETHRUST / VESSEL:MAXTHRUST).
+	
+	return thrustCurrent.
+}
 
 
 
@@ -29,6 +45,7 @@ UNTIL apoapsis >= (orbitalHeight * 1.05)
 	technicalReadout().
 	//positionReadout().
 	steerShipIf(orbitalHeight).
+	lock throttle to adjustThrottle(1.25).
 
 }
 
