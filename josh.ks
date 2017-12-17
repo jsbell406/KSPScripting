@@ -1,5 +1,5 @@
 
-
+parameter orbitalHeight.
 
 //Easier file copying
 
@@ -16,3 +16,4 @@ print "Loaded.".
 wait 1.
 }.
 switch to 1.
+run new.ks(orbitalHeight).

@@ -1,7 +1,7 @@
 CLEARSCREEN. 
 parameter orbitalHeight.
 RUN ONCE UserFunctions.ks(orbitalHeight).
-SWITCH TO 1.
+//SWITCH TO 1.
 //COPYPATH("0:/UserFunctions.KS","").
 //COPYPATH("0:/new.KS","").
 createStartingPosition().
