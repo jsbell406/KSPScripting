@@ -29,9 +29,12 @@ releaseLaunchClamps().
 UNTIL apoapsis >= (orbitalHeight * 1.1)
 { 
 	technicalReadout().
+	thrustCalculations().
 	//positionReadout().
-	lock steering to steerShipIf(orbitalHeight).
-	lock throttle to (round(adjustThrottle(1.25)), actThrottle).
+	lock steering to heading(90, steerShipIf(orbitalHeight)).
+	set actThrottle to adjustThrottle(1.25,actThrottle).
+	//lock throttle to (round(adjustThrottle(1.25)), actThrottle).
+	lock throttle to actThrottle.
 }
 
 lock throttle to 0.

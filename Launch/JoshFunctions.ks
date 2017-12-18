@@ -4,13 +4,19 @@ parameter orbitAltitude.
 	{
 		parameter orbitAltitude.
 		
-		until getDownRangeDistanceAct(orbitAltitude) <= orbitAltitude
+		set currentHeading to ship:heading.
+		
+		if getDistanceFromOrbitalAnchor() >= orbitAltitude
 		{
-			if downRangeDistance(orbitAltitude) > orbitAltitude 
+			until downRangeDistance(orbitAltitude) > orbitAltitude 
 			{
 				wait 0.5.
-				set ifAscentPitch to ifAscentPitch - 0.1.
+				set currentHeading to currentHeading - 0.1.
 			}
+		}
+		else
+		{
+		return currentHeading.
 		}
 	}
 		
@@ -21,7 +27,7 @@ parameter orbitAltitude.
 		
 		thrustCalculations().
 		
-		set newThrottle to calculateThrottle().
+		set newThrottle to actThrottle.
 		
 		until actTWR <= targetTWR 
 		{
