@@ -85,6 +85,9 @@ parameter orbitAlt.
 		return activeEnginesList.
 	}
 	
+	
+	//parameter targetTWR - Desired TWR
+	//parameter actThrottle - current throttle value
 	function adjustThrottle
 	{
 		parameter targetTWR.
@@ -104,6 +107,7 @@ parameter orbitAlt.
 		return actThrottle.
 	}
 
+	//DEPRECATED
 	function calculateThrottle
 	{
 		set VESSEL to SHIP.
