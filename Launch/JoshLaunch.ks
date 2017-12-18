@@ -18,6 +18,7 @@ getLaunchClamps().
 createFirstStage().
 
 set actThrottle to 1.
+set actHeading to 90.
 wait 1.
 lock throttle to actThrottle.
 wait 1.
@@ -31,7 +32,8 @@ UNTIL apoapsis >= (orbitalHeight * 1.1)
 	technicalReadout().
 	thrustCalculations().
 	//positionReadout().
-	lock steering to heading(90, steerShipIf(orbitalHeight)).
+	lock steering to heading(90, actHeading).
+	set actHeading to steerShipIf(orbitalHeight, actHeading).
 	set actThrottle to adjustThrottle(1.25,actThrottle).
 	//lock throttle to (round(adjustThrottle(1.25)), actThrottle).
 	lock throttle to actThrottle.

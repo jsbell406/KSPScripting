@@ -3,21 +3,26 @@ parameter orbitAltitude.
 	function steerShipIf
 	{
 		parameter orbitAltitude.
+		parameter actHeading.
+		set a to false.
 		
-		set currentHeading to ship:heading.
-		
-		if getDistanceFromOrbitalAnchor() >= orbitAltitude
+		if anchor:distance >= orbitAltitude
 		{
-			until downRangeDistance(orbitAltitude) > orbitAltitude 
-			{
-				wait 0.5.
-				set currentHeading to currentHeading - 0.1.
-			}
+			set actHeading to actHeading - 0.5.
+			set a to true.
 		}
 		else
 		{
-		return currentHeading.
+			if anchor:distance < orbitAltitude AND a = true
+			{
+				set actHeading to actHeading + 0.5.
+				return actHeading.
+			}
+			
+			return actHeading.
 		}
+		
+		return actHeading.
 	}
 		
 	function adjustThrottle
