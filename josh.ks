@@ -7,15 +7,15 @@ parameter orbitalHeight.
 
 
 //Set to path of file needing to be copied
-set files to list("Launch/JoshLaunch.ks","Launch/positionfunctions.ks","Launch/enginefunctions.ks","Launch/mathfunctions.ks","Launch/shipfunctions.ks","Launch/launchfunctions.ks","Launch/joshfunctions.ks").
+set files to list("Launch/joshlaunch.ks","Launch/positionfunctions.ks","Launch/enginefunctions.ks","Launch/mathfunctions.ks","Launch/shipfunctions.ks","Launch/launchfunctions.ks","Launch/joshfunctions.ks").
 
 
 For file in files
 {
 copypath ("0:/"+file,"1:").
-print file + "...".
-print "Loaded.".
+//print file + "...".
+//print "Loaded.".
 wait 0.5.
 }.
 switch to 1.
-run JoshLaunch.ks(orbitalHeight).
+run JoshLaunch(orbitalHeight).ks.

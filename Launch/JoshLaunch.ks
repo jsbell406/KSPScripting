@@ -2,11 +2,11 @@ CLEARSCREEN.
 parameter orbitalHeight.
 // --- IMPORTS ---
 	RUN ONCE PositionFunctions.ks(orbitalHeight).
-	RUN ONCE LaunchFunctions.ks.
-	RUN ONCE ShipFunctions.ks.
-	RUN ONCE MathFunctions.ks.
-	RUN ONCE EngineFunctions.ks.
-	RUN ONCE JoshFunctions.ks.
+	RUN ONCE LaunchFunctions.ks(orbitalHeight).
+	RUN ONCE ShipFunctions.ks(orbitalHeight).
+	RUN ONCE MathFunctions.ks(orbitalHeight).
+	RUN ONCE EngineFunctions.ks(orbitalHeight).
+	RUN ONCE JoshFunctions.ks(orbitalHeight).
 	
 //SWITCH TO 1.
 //COPYPATH("0:/UserFunctions.KS","").
@@ -16,8 +16,10 @@ deployOrbitalAnchor(orbitalHeight).
 thrustCalculations().
 getLaunchClamps().
 createFirstStage().
+
+set actThrottle to 1.
 wait 1.
-lock throttle to 1.
+lock throttle to actThrottle.
 wait 1.
 firstStageIgnition().
 wait 0.05.
@@ -28,8 +30,8 @@ UNTIL apoapsis >= (orbitalHeight * 1.1)
 { 
 	technicalReadout().
 	//positionReadout().
-	steerShipIf(orbitalHeight).
-	lock throttle to adjustThrottle(1.25).
+	lock steering to steerShipIf(orbitalHeight).
+	lock throttle to (round(adjustThrottle(1.25)), actThrottle).
 }
 
 lock throttle to 0.

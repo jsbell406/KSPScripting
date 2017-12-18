@@ -88,6 +88,7 @@ parameter orbitAlt.
 	function adjustThrottle
 	{
 		parameter targetTWR.
+		parameter actThrottle.
 		
 		thrustCalculations().
 		
