@@ -8,13 +8,6 @@ RUN ONCE EngineFunctions.ks.
 //COPYPATH("0:/new.KS","").
 createStartingPosition().
 deployOrbitalAnchor(orbitalHeight).
-//print getDownRangeDistanceAct(orbitalHeight).
-
-//Temporary function because James is annoying
-
-
-
-
 thrustCalculations().
 getLaunchClamps().
 createFirstStage().
@@ -26,7 +19,7 @@ wait 0.05.
 releaseLaunchClamps().
 
 	
-UNTIL apoapsis >= (orbitalHeight * 1.05)
+UNTIL apoapsis >= (orbitalHeight * 1.1)
 { 
 	technicalReadout().
 	//positionReadout().

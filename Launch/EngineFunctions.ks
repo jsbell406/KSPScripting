@@ -100,10 +100,10 @@ parameter orbitAlt.
 		return newThrottle.
 	}
 
-function calculateThrottle
-{
-	set VESSEL to SHIP.
+	function calculateThrottle
+	{
+		set VESSEL to SHIP.
 
-	set thrustCurrent to (VESSEL:AVAILABLETHRUST / VESSEL:MAXTHRUST).
-	return thrustCurrent.
-}
+		set thrustCurrent to (VESSEL:AVAILABLETHRUST / VESSEL:MAXTHRUST).
+		return thrustCurrent.
+	}

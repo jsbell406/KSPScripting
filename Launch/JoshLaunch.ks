@@ -23,10 +23,11 @@ wait 0.05.
 releaseLaunchClamps().
 
 	
-UNTIL SHIP:STATUS = "ORBIT"
+UNTIL apoapsis >= (orbitalHeight * 1.1)
 { 
 	technicalReadout().
 	//positionReadout().
-	steerShip().
-
+	steerShipIf(orbitalHeight).
+	lock throttle to adjustThrottle(1.25).
+	
 }
