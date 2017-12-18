@@ -21,7 +21,7 @@ parameter orbitAlt.
 		//print "Altitude:        " + round(altitude,2).
 		//print "Apoapsis:        " + round(apoapsis,2).
 		//print "Periapsis:       " + round(periapsis,2).
-		//print "status:          " + status.
+		print "status:          " + status.
 		//print "throttle:        " + round(throttle,3).
 		//print "eta to apoapsis: " + round(eta:apoapsis,1).
 		//print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
