@@ -28,13 +28,13 @@ wait 0.05.
 releaseLaunchClamps().
 
 	
-UNTIL apoapsis >= (orbitalHeight * 1.1)
+UNTIL ship:apoapsis >= (orbitalHeight * 1)
 { 
 	technicalReadout().
 	thrustCalculations().
 	//positionReadout().
 	
-	//Blatanly stolen for "testing"
+	//Blatantly stolen for "testing"
 	steerShipJames().
 	
 	//Previous method --
@@ -47,5 +47,6 @@ UNTIL apoapsis >= (orbitalHeight * 1.1)
 }
 
 lock throttle to 0.
+lock steering to prograde.
 
 
