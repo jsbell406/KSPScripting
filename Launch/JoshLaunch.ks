@@ -28,7 +28,7 @@ wait 0.05.
 releaseLaunchClamps().
 
 	
-UNTIL ship:apoapsis >= (orbitalHeight * 1)
+UNTIL ship:apoapsis >= orbitalHeight
 { 
 	technicalReadout().
 	thrustCalculations().
@@ -44,6 +44,8 @@ UNTIL ship:apoapsis >= (orbitalHeight * 1)
 	
 	set actThrottle to adjustThrottle(1.75,actThrottle).
 	lock throttle to actThrottle.
+	
+	print "Actual Throttle:	" + actThrottle.
 }
 
 lock throttle to 0.

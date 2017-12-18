@@ -30,8 +30,6 @@ parameter orbitAltitude.
 		parameter targetTWR.
 		parameter actThrottle.
 		
-		thrustCalculations().
-		
 		if actTWR <= targetTWR 
 		{
 			set actThrottle to actThrottle + 0.01.
@@ -43,7 +41,6 @@ parameter orbitAltitude.
 			set actThrottle to actThrottle - 0.01.
 			wait 0.01.
 		}
-		
 		return actThrottle.
 	}
 
