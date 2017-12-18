@@ -13,9 +13,9 @@ parameter orbitAltitude.
 		}
 		else
 		{
-			if anchor:distance < orbitAltitude AND a = true
+			if anchor:distance < (orbitAltitude + orbitAltitude/10) AND a = true
 			{
-				set actHeading to actHeading + 0.5.
+				set actHeading to actHeading + 0.1.
 				return actHeading.
 			}
 			
@@ -32,14 +32,19 @@ parameter orbitAltitude.
 		
 		thrustCalculations().
 		
-		set newThrottle to actThrottle.
-		
-		until actTWR <= targetTWR 
+		if actTWR <= targetTWR 
 		{
-			set newThrottle to newThrottle - 0.05.
+			set actThrottle to actThrottle + 0.01.
 			wait 0.01.
 		}
-		return newThrottle.
+		
+		if actTWR >= targetTWR
+		{
+			set actThrottle to actThrottle - 0.01.
+			wait 0.01.
+		}
+		
+		return actThrottle.
 	}
 
 	function calculateThrottle

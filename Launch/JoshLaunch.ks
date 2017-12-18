@@ -7,6 +7,7 @@ parameter orbitalHeight.
 	RUN ONCE MathFunctions.ks(orbitalHeight).
 	RUN ONCE EngineFunctions.ks(orbitalHeight).
 	RUN ONCE JoshFunctions.ks(orbitalHeight).
+	RUN ONCE JamesFunctions.ks(orbitalHeight).
 	
 //SWITCH TO 1.
 //COPYPATH("0:/UserFunctions.KS","").
@@ -32,10 +33,16 @@ UNTIL apoapsis >= (orbitalHeight * 1.1)
 	technicalReadout().
 	thrustCalculations().
 	//positionReadout().
-	lock steering to heading(90, actHeading).
-	set actHeading to steerShipIf(orbitalHeight, actHeading).
-	set actThrottle to adjustThrottle(1.25,actThrottle).
-	//lock throttle to (round(adjustThrottle(1.25)), actThrottle).
+	
+	//Blatanly stolen for "testing"
+	steerShipJames().
+	
+	//Previous method --
+	//lock steering to heading(90, actHeading).
+	//set actHeading to steerShipIf(orbitalHeight, actHeading).
+	
+	
+	set actThrottle to adjustThrottle(1.75,actThrottle).
 	lock throttle to actThrottle.
 }
 
