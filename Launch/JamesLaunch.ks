@@ -6,6 +6,8 @@ parameter orbitalHeight.
 	RUN ONCE ShipFunctions.ks(orbitalHeight).
 	RUN ONCE MathFunctions.ks(orbitalHeight).
 	RUN ONCE EngineFunctions.ks(orbitalHeight).
+	RUN ONCE JamesLaunch.ks(orbitalHeight).
+	RUN ONCE JamesFunctions.ks(orbitalHeight).
 	
 //SWITCH TO 1.
 //COPYPATH("0:/UserFunctions.KS","").
@@ -27,6 +29,6 @@ UNTIL SHIP:STATUS = "ORBIT"
 { 
 	technicalReadout().
 	//positionReadout().
-	steerShip().
+	steerShipJames().
 
 }

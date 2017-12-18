@@ -6,7 +6,7 @@ parameter orbitalHeight.
 
 
 //Set to path of file needing to be copied
-set files to list("Launch/JamesLaunch.ks","Launch/userfunctions.ks","Launch/positionfunctions.ks","Launch/enginefunctions.ks","Launch/mathfunctions.ks","Launch/shipfunctions.ks","Launch/launchfunctions.ks").
+set files to list("Launch/JamesLaunch.ks","Launch/jamesfunctions.ks","Launch/positionfunctions.ks","Launch/enginefunctions.ks","Launch/mathfunctions.ks","Launch/shipfunctions.ks","Launch/launchfunctions.ks").
 
 
 For file in files

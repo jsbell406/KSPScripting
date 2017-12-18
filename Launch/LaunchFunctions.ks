@@ -16,7 +16,7 @@ LIST PARTS IN allParts.
 // --- FUNCTIONS ---
 
 	// set test launch here
-	set testLaunch to false.
+	set testLaunch to true.
 	
 	
 // List of Launch clamps
