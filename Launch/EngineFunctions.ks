@@ -84,3 +84,30 @@ parameter orbitAlt.
 	{
 		return activeEnginesList.
 	}
+	
+	function adjustThrottle
+	{
+		parameter targetTWR.
+		parameter actThrottle.
+		
+		if actTWR <= targetTWR 
+		{
+			set actThrottle to actThrottle + 0.01.
+			wait 0.01.
+		}
+		
+		if actTWR >= targetTWR
+		{
+			set actThrottle to actThrottle - 0.01.
+			wait 0.01.
+		}
+		return actThrottle.
+	}
+
+	function calculateThrottle
+	{
+		set VESSEL to SHIP.
+
+		set throttleCurrent to (VESSEL:AVAILABLETHRUST / VESSEL:MAXTHRUST).
+		return throttleCurrent.
+	}

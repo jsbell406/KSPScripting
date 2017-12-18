@@ -40,3 +40,4 @@ parameter orbitAlt.
 		declare global actTWR to ((ship:availablethrust * gravAcc1) / (mass * gravAcc1 ^ 2)) * throttle.
 		declare global maxTWR to (ship:availablethrust * gravAcc1) / (mass * gravAcc1 ^ 2).
 	}
+	

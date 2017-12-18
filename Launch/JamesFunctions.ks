@@ -3,6 +3,28 @@ parameter orbitalHeight.
 
 
 
+
+	function thrustLimiter
+	{
+	
+		parameter thrustLimit.
+	
+		thrustCalculations().
+		print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
+		if actTWR <= targetTWR 
+		{
+			set actThrottle to actThrottle + 0.01.
+			wait 0.01.
+		}
+		
+		if actTWR >= targetTWR
+		{
+			set actThrottle to actThrottle - 0.01.
+			wait 0.01.
+		}
+	
+	
+	}
     function getAscentPitchJames
 	{
 			set rad to Round(ship:apoapsis,1).
@@ -27,6 +49,8 @@ parameter orbitalHeight.
 	function steerShipJames
 	{
 
+	
+		thrustLimiter().
 		set accentAngle to getAscentPitchJames().
 		//print accentAngle.
 		
