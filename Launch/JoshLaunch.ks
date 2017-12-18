@@ -6,6 +6,7 @@ parameter orbitalHeight.
 	RUN ONCE ShipFunctions.ks.
 	RUN ONCE MathFunctions.ks.
 	RUN ONCE EngineFunctions.ks.
+	RUN ONCE JoshFunctions.ks.
 	
 //SWITCH TO 1.
 //COPYPATH("0:/UserFunctions.KS","").
@@ -29,5 +30,8 @@ UNTIL apoapsis >= (orbitalHeight * 1.1)
 	//positionReadout().
 	steerShipIf(orbitalHeight).
 	lock throttle to adjustThrottle(1.25).
-	
 }
+
+lock throttle to 0.
+
+

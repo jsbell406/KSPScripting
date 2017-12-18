@@ -87,10 +87,11 @@ parameter orbitAlt.
 	
 	function adjustThrottle
 	{
+		parameter targetTWR.
+		
 		thrustCalculations().
 		
-		parameter targetTWR.
-		set newThrottle to calculateThrottle.
+		set newThrottle to calculateThrottle().
 		
 		until actTWR <= targetTWR 
 		{
@@ -104,6 +105,6 @@ parameter orbitAlt.
 	{
 		set VESSEL to SHIP.
 
-		set thrustCurrent to (VESSEL:AVAILABLETHRUST / VESSEL:MAXTHRUST).
-		return thrustCurrent.
+		set throttleCurrent to (VESSEL:AVAILABLETHRUST / VESSEL:MAXTHRUST).
+		return throttleCurrent.
 	}
