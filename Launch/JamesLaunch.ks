@@ -3,13 +3,8 @@ parameter orbitalHeight.
 
 
 // --- IMPORTS ---
-	RUN ONCE PositionFunctions.ks(orbitalHeight).
-	RUN ONCE LaunchFunctions.ks(orbitalHeight).
-	RUN ONCE ShipFunctions.ks(orbitalHeight).
-	RUN ONCE MathFunctions.ks(orbitalHeight).
-	RUN ONCE EngineFunctions.ks(orbitalHeight).
-	RUN ONCE JamesLaunch.ks(orbitalHeight).
-	RUN ONCE JamesFunctions.ks(orbitalHeight).
+
+	RUN ONCE lib.ks(orbitalHeight).
 
 createStartingPosition().
 deployOrbitalAnchor(orbitalHeight).
