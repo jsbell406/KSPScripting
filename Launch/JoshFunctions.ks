@@ -93,6 +93,11 @@ parameter orbitAltitude.
 		wait 20.
 		
 		set t to getManueverTime(targetMan:deltav:mag).
+		//Testing short maneuver timer
+		if t < 1
+		{
+			set t to t * (2 - t).
+		}
 		print "Burn time: " + round (t,2) + " seconds".
 		
 		wait until targetMan:ETA <= (t/2).
