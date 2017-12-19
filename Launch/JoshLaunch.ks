@@ -48,7 +48,7 @@ releaseLaunchClamps().
 	// print "Actual Throttle:	" + actThrottle.
 // }
 
-until ship:periapsis >= orbitalHeight
+until ship:apoapsis >= orbitalHeight
 {
 	UNTIL SHIP:STATUS <> "FLYING"
 	{ 
@@ -78,7 +78,14 @@ until ship:periapsis >= orbitalHeight
 
 	}
 }
+
 lock throttle to 0.
 lock steering to prograde.
+
+planCircManeuver(orbitalHeight).
+execManeuver(orbitalHeight).
+
+clearscreen.
+print "Orbit complete at " + orbitalHeight + "m.".
 
 

@@ -51,3 +51,66 @@ parameter orbitAltitude.
 		set throttleCurrent to (VESSEL:AVAILABLETHRUST / VESSEL:MAXTHRUST).
 		return throttleCurrent.
 	}
+
+	function planCircManeuver
+	{
+		parameter orbitAltitude.
+		
+		set targetMan to node(time:seconds+eta:apoapsis, 0, 0, -5).
+		add targetMan.
+		
+		clearscreen.
+		wait 0.5.
+		print "Selected orbit is " + orbitAltitude + "m.".
+		
+		until targetMan:ORBIT:PERIAPSIS > (orbitAltitude - (orbitAltitude / 50)) 
+		{
+			set targetMan:PROGRADE to targetMan:PROGRADE + 1.
+			clearscreen.
+			print "dV use: " + round(targetMan:PROGRADE, 2).
+		}
+		until targetMan:ORBIT:PERIAPSIS > (orbitAltitude - (orbitAltitude / 100)) 
+		{
+			set targetMan:PROGRADE to targetMan:PROGRADE + 0.001.
+			clearscreen.
+			print "dV use: " + round(targetMan:PROGRADE,2).
+		}
+		until targetMan:ORBIT:PERIAPSIS >= orbitAltitude 
+		{
+			set targetMan:PROGRADE to targetMan:PROGRADE + 0.0001.
+			clearscreen.
+			print "dV use: " + round(targetMan:PROGRADE,2).
+		}
+	}
+	
+	function execManeuver
+	{
+		parameter orbitAltitude.
+		
+		set targetMan to nextnode.
+		wait 1.
+		lock steering to targetMan:deltav.
+		wait 20.
+		
+		set t to getManueverTime(targetMan:deltav:mag).
+		print "Burn time: " + round (t,2) + " seconds".
+		
+		wait until targetMan:ETA <= (t/2).
+		unlock steering.
+		sas on.
+		
+		lock throttle to min(getManueverTime(targetMan: deltav:mag), 1).
+		wait t.
+		sas off.
+		
+		lock steering to prograde.
+		lock throttle to 0.
+		
+		until periapsis <= orbitAltitude
+		{
+			lock throttle to 0.1.
+		}
+		lock throttle to 0.
+		
+		remove nextnode.
+	}

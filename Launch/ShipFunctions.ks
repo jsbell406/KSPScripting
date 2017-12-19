@@ -63,10 +63,18 @@ parameter orbitAlt.
 	parameter dv.
 	
 	updateActiveEngines ().
-	local engT is activeEnginesList:MAXTHRUST * 1000.
+	//local engT is activeEnginesList:MAXTHRUST * 1000.
+	for eng in activeEnginesList()
+	{
+		set engT to engT + eng:maxthrust * 1000.
+	}
 	local vesMass is SHIP:MASS * 1000.
 	local e is CONSTANT():E.
-	local engISP is activeEnginesList:ISP.
+	//local engISP is activeEnginesList:ISP.
+	for eng in activeEnginesList()
+	{
+		set engISP to engISP + eng:isp.
+	}
 	local g is (constant:G * ship:body:mass) / ((ship:body:radius + altitude) ^ 2).
 	
 	return g * vesMass * engISP * (1 -  e^(-dv/(g*engISP))) / engT.

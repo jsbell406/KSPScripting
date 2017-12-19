@@ -17,7 +17,6 @@ For file in files
 copypath ("0:/"+file,"1:").
 //print file + "...".
 //print "Loaded.".
-wait 0.5.
 }.
 switch to 1.
 run JoshLaunch(orbitalHeight).ks.
