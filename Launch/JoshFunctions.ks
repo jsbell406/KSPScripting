@@ -96,16 +96,17 @@ parameter orbitAltitude.
 		//Testing short maneuver timer
 		if t < 1
 		{
-			set t2 to getManueverTime(targetMan:deltav:mag, t).
+			set t2 to t.
+			set t to getManueverTime(targetMan:deltav:mag, t).
 		}
-		print "Burn time: " + round (t2,2) + " seconds".
+		print "Burn time: " + round (t,2) + " seconds".
 		
-		wait until targetMan:ETA <= (t2/2).
+		wait until targetMan:ETA <= (t/2).
 		unlock steering.
 		sas on.
 		
 		lock throttle to min(getManueverTime(targetMan:deltav:mag, t2), 1).
-		wait t2.
+		wait t.
 		sas off.
 		
 		lock steering to prograde.
