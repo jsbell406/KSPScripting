@@ -18,10 +18,10 @@ thrustCalculations().
 getLaunchClamps().
 createFirstStage().
 
-set actThrottle to 1.
-set actHeading to 90.
+set activeThrottle to 1.
+//set actHeading to 90.
 wait 1.
-lock throttle to actThrottle.
+lock throttle to activeThrottle.
 wait 1.
 firstStageIgnition().
 wait 0.05.
