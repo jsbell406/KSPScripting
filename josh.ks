@@ -19,4 +19,4 @@ copypath ("0:/"+file,"1:").
 //print "Loaded.".
 }.
 switch to 1.
-run JoshLaunch(orbitAltitude).ks.
+run JoshLaunch(orbitAltitude).
