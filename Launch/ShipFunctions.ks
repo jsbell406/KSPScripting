@@ -62,16 +62,19 @@ parameter orbitAlt.
 	{
 	parameter dv.
 	
-	updateActiveEngines ().
+	updateActiveEngines().
+	getActiveEngines().
 	//local engT is activeEnginesList:MAXTHRUST * 1000.
-	for eng in activeEnginesList()
+	set engT to 0.
+	for eng in activeEnginesList
 	{
 		set engT to engT + eng:maxthrust * 1000.
 	}
 	local vesMass is SHIP:MASS * 1000.
 	local e is CONSTANT():E.
 	//local engISP is activeEnginesList:ISP.
-	for eng in activeEnginesList()
+	set engISP to 0.
+	for eng in activeEnginesList
 	{
 		set engISP to engISP + eng:isp.
 	}

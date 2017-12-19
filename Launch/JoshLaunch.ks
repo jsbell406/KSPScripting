@@ -1,19 +1,21 @@
 CLEARSCREEN. 
-parameter orbitalHeight.
+parameter orbitAltitude.
 // --- IMPORTS ---
-	RUN ONCE PositionFunctions.ks(orbitalHeight).
-	RUN ONCE LaunchFunctions.ks(orbitalHeight).
-	RUN ONCE ShipFunctions.ks(orbitalHeight).
-	RUN ONCE MathFunctions.ks(orbitalHeight).
-	RUN ONCE EngineFunctions.ks(orbitalHeight).
-	RUN ONCE JoshFunctions.ks(orbitalHeight).
-	RUN ONCE JamesFunctions.ks(orbitalHeight).
+	// RUN ONCE PositionFunctions.ks(orbitAltitude).
+	// RUN ONCE LaunchFunctions.ks(orbitAltitude).
+	// RUN ONCE ShipFunctions.ks(orbitAltitude).
+	// RUN ONCE MathFunctions.ks(orbitAltitude).
+	// RUN ONCE EngineFunctions.ks(orbitAltitude).
+	// RUN ONCE JoshFunctions.ks(orbitAltitude).
+	// RUN ONCE JamesFunctions.ks(orbitAltitude).
+	RUN ONCE lib.ks(orbitAltitude).
 	
 //SWITCH TO 1.
 //COPYPATH("0:/UserFunctions.KS","").
 //COPYPATH("0:/new.KS","").
+lib(orbitAltitude).
 createStartingPosition().
-deployOrbitalAnchor(orbitalHeight).
+deployOrbitalAnchor(orbitAltitude).
 thrustCalculations().
 getLaunchClamps().
 createFirstStage().
@@ -28,7 +30,7 @@ wait 0.05.
 releaseLaunchClamps().
 
 	
-// UNTIL ship:apoapsis >= orbitalHeight
+// UNTIL ship:apoapsis >= orbitAltitude
 // { 
 	// technicalReadout().
 	// thrustCalculations().
@@ -39,7 +41,7 @@ releaseLaunchClamps().
 	
 	// //Previous method --
 	// //lock steering to heading(90, actHeading).
-	// //set actHeading to steerShipIf(orbitalHeight, actHeading).
+	// //set actHeading to steerShipIf(orbitAltitude, actHeading).
 	
 	
 	// set actThrottle to adjustThrottle(1.75,actThrottle).
@@ -48,7 +50,7 @@ releaseLaunchClamps().
 	// print "Actual Throttle:	" + actThrottle.
 // }
 
-until ship:apoapsis >= orbitalHeight
+until ship:apoapsis >= (orbitAltitude - ship:altitude)
 {
 	UNTIL SHIP:STATUS <> "FLYING"
 	{ 
@@ -82,10 +84,10 @@ until ship:apoapsis >= orbitalHeight
 lock throttle to 0.
 lock steering to prograde.
 
-planCircManeuver(orbitalHeight).
-execManeuver(orbitalHeight).
+planCircManeuver(orbitAltitude).
+execManeuver(orbitAltitude).
 
 clearscreen.
-print "Orbit complete at " + orbitalHeight + "m.".
+print "Orbit complete at " + orbitAltitude + "m.".
 
 
