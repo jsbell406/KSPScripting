@@ -61,6 +61,9 @@ parameter orbitAlt.
 	function getManueverTime
 	{
 	parameter dv.
+	//Testing burns < 1 second.=
+	parameter thrustLimiter.
+	
 	
 	updateActiveEngines().
 	getActiveEngines().
@@ -68,7 +71,7 @@ parameter orbitAlt.
 	set engT to 0.
 	for eng in activeEnginesList
 	{
-		set engT to engT + eng:maxthrust * 1000.
+		set engT to engT + eng:maxthrust * 1000 * thrustLimiter.
 	}
 	local vesMass is SHIP:MASS * 1000.
 	local e is CONSTANT():E.
