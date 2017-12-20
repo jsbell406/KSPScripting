@@ -31,7 +31,10 @@ parameter orbitalHeight.
 	
 	function thrustLimiter
 	{
-		ship:apoapsis / orbitalHeight.
+		set altPerc	to ship:apoapsis / orbitalHeight.
+		set thrustlim to altPerc * 1.6.
+		
+		return altPerc.
 	}
 	
 	
