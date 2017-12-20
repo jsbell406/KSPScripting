@@ -120,3 +120,14 @@ parameter orbitAltitude.
 		
 		remove nextnode.
 	}
+	
+	function tempTechReadout
+	{
+		parameter orbitAltitude.
+		
+		clearscreen.
+		wait 0.01.
+		print "Apoapsis:		" + ship:apoapsis + "m.".
+		print "Target Orbit:	" + orbitAltitude + "m.".
+		print "---".
+	}

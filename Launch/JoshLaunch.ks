@@ -50,34 +50,26 @@ releaseLaunchClamps().
 	// print "Actual Throttle:	" + actThrottle.
 // }
 
-until ship:apoapsis >= (orbitAltitude - ship:altitude)
+until ship:apoapsis >= (orbitAltitude)
 {
+	thrustCalculations().
+	steerShipJames().
 	UNTIL SHIP:STATUS <> "FLYING"
 	{ 
-		thrustCalculations().
-		technicalReadout().
-		//positionReadout().
-		steerShipJames().
+		//technicalReadout().
 		set activeThrottle to adjustThrottle(1.5,activeThrottle).
 		lock throttle to activeThrottle.
-		print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
-		print "Actual Throttle:	" + activeThrottle.
-
+		tempTechReadout(orbitAltitude).
 	
 	}
 	wait 0.5.
 
 	UNTIL SHIP:STATUS <> "SUB_ORBITAL"
 	{
-		thrustCalculations().
-		technicalReadout().
-		//positionReadout().
-		steerShipJames().
+		//technicalReadout().
 		set activeThrottle to adjustThrottle(0.75,activeThrottle).
 		lock throttle to activeThrottle.
-		print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
-		print "Actual Throttle:	" + activeThrottle.
-
+		tempTechReadout(orbitAltitude).
 	}
 }
 
