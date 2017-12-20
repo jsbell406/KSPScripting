@@ -75,12 +75,20 @@ parameter orbitAltitude.
 			clearscreen.
 			print "dV use: " + round(targetMan:PROGRADE,2).
 		}
-		until targetMan:ORBIT:PERIAPSIS >= orbitAltitude 
+		
+		until targetMan:ORBIT:ECCENTRICITY <= 0.001
 		{
 			set targetMan:PROGRADE to targetMan:PROGRADE + 0.0001.
 			clearscreen.
 			print "dV use: " + round(targetMan:PROGRADE,2).
 		}
+		
+		// until targetMan:ORBIT:PERIAPSIS >= orbitAltitude 
+		// {
+			// set targetMan:PROGRADE to targetMan:PROGRADE + 0.0001.
+			// clearscreen.
+			// print "dV use: " + round(targetMan:PROGRADE,2).
+		// }
 	}
 	
 	function execManeuver
