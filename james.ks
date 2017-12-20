@@ -5,7 +5,7 @@ parameter orbitalHeight.
 //Easier file copying
 
 
-set testScript to true.
+set testScript to true.//Testing
 
 
 
