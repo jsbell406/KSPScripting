@@ -50,26 +50,39 @@ releaseLaunchClamps().
 	// print "Actual Throttle:	" + actThrottle.
 // }
 
+set thrustLimiter to 1.5.
+//set thrustLim to thrustLimiter(orbitAltitude).
+
 until ship:apoapsis >= (orbitAltitude)
 {
-	thrustCalculations().
-	steerShipJames().
+	
+	
+	// set activeThrottle to adjustThrottle(thrustLim,activeThrottle).
+	lock throttle to activeThrottle.
+		
 	UNTIL SHIP:STATUS <> "FLYING"
 	{ 
 		//technicalReadout().
+		thrustCalculations().
+		steerShipJames().
+		tempTechReadout(orbitAltitude, activeThrottle).
+		
 		set activeThrottle to adjustThrottle(1.5,activeThrottle).
 		lock throttle to activeThrottle.
-		tempTechReadout(orbitAltitude).
 	
 	}
-	wait 0.5.
+	wait 0.01.
 
-	UNTIL SHIP:STATUS <> "SUB_ORBITAL"
+	UNTIL (SHIP:STATUS <> "SUB_ORBITAL") OR (ship:apoapsis >= orbitAltitude)
 	{
 		//technicalReadout().
-		set activeThrottle to adjustThrottle(0.75,activeThrottle).
+		thrustCalculations().
+		steerShipJames().
+		tempTechReadout(orbitAltitude, activeThrottle).
+		
+		//set thrustLim to thrustLimiter(orbitAltitude).
+		set activeThrottle to adjustThrottle(0.75 , activeThrottle).
 		lock throttle to activeThrottle.
-		tempTechReadout(orbitAltitude).
 	}
 }
 

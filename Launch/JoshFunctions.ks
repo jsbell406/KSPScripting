@@ -90,25 +90,28 @@ parameter orbitAltitude.
 		set targetMan to nextnode.
 		wait 1.
 		lock steering to targetMan:deltav.
-		wait 20.
 		
-		set t to getManueverTime(targetMan:deltav:mag, 1).
+		set burnTime to getManueverTime(targetMan:deltav:mag, 1).
 		//Testing short maneuver timer
-		if t < 1
+		if burnTime < 1
 		{
-			set t2 to t.
-			set t to getManueverTime(targetMan:deltav:mag, t).
+			set adjBurnTime to burnTime.
+			set shortBurn to true.
+			set burnTime to getManueverTime(targetMan:deltav:mag, burnTime).
 		}
-		print "Burn time: " + round (t,2) + " seconds".
+		else{
+			set adjBurnTime to burnTime.
+		}
+		print "Burn time: " + round (burnTime,2) + " seconds".
 		
-		wait until targetMan:ETA <= (t/2).
+		wait until targetMan:ETA <= (burnTime/2).
 		unlock steering.
 		sas on.
 		
-		lock throttle to min(getManueverTime(targetMan:deltav:mag, t2), 1).
-		wait t.
+		lock throttle to min(getManueverTime(targetMan:deltav:mag, adjBurnTime), 1).
+		wait burnTime.
 		sas off.
-		
+				
 		lock steering to prograde.
 		lock throttle to 0.
 		
@@ -124,10 +127,11 @@ parameter orbitAltitude.
 	function tempTechReadout
 	{
 		parameter orbitAltitude.
-		
+		parameter thrustLim.
+				
 		clearscreen.
-		wait 0.01.
-		print "Apoapsis:		" + ship:apoapsis + "m.".
+		print "Apoapsis:		" + round(ship:apoapsis, 1) + "m.".
 		print "Target Orbit:	" + orbitAltitude + "m.".
 		print "---".
+		print "Expected TWR:	" + thrustLim  + " TWR".
 	}
