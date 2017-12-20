@@ -10,14 +10,6 @@ parameter orbitalHeight.
 			set accAdj to difference / orb.
 			
 			set accentAngle to accAdj * 90.
-			
-			print rad.
-			//print orb.
-			print "apo " + ship:apoapsis.
-			print "Real Accent: " + accentAngle.
-			
-			
-			
 				
 		return accentAngle.
 	}
@@ -36,3 +28,10 @@ parameter orbitalHeight.
 		LOCK STEERING TO HEADING(90, accentAngle).
 
 	}
+	
+	function thrustLimiter
+	{
+		ship:apoapsis / orbitalHeight.
+	}
+	
+	

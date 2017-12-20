@@ -25,9 +25,6 @@ print allParts.
 print firstStageEngines.
 
 
-
-
-
 for part in firstStageEngines
 {
 	firstStage:add(part:parent).
@@ -35,11 +32,7 @@ for part in firstStageEngines
 
 print firstStage.
 
-set nextPart to firstStage[firstStage:length -1].
-firstStage:add(nextPart:parent).
-
-print firstStage[0]:resources.
-print firstStage[1]:modules.
-print firstStage[1]:resources.
-
+set x to 0.
+set y to 0.
+set length to firstStage:length.
 print firstStage.
