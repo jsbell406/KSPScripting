@@ -63,13 +63,13 @@ parameter orbitAltitude.
 		wait 0.5.
 		print "Selected orbit is " + orbitAltitude + "m.".
 		
-		until targetMan:ORBIT:PERIAPSIS > (orbitAltitude - (orbitAltitude / 50)) 
+		until targetMan:ORBIT:PERIAPSIS > (orbitAltitude - (orbitAltitude / 100)) 
 		{
 			set targetMan:PROGRADE to targetMan:PROGRADE + 1.
 			clearscreen.
 			print "dV use: " + round(targetMan:PROGRADE, 2).
 		}
-		until targetMan:ORBIT:PERIAPSIS > (orbitAltitude - (orbitAltitude / 100)) 
+		until targetMan:ORBIT:PERIAPSIS > (orbitAltitude - (orbitAltitude / 200)) 
 		{
 			set targetMan:PROGRADE to targetMan:PROGRADE + 0.01.
 			clearscreen.
@@ -97,38 +97,78 @@ parameter orbitAltitude.
 		
 		set targetMan to nextnode.
 		wait 1.
-		lock steering to targetMan:deltav.
+		set targetSteer to targetMan:deltav.
+		lock steering to targetSteer.
 		
 		set burnTime to getManueverTime(targetMan:deltav:mag, 1).
-		//Testing short maneuver timer
-		if burnTime < 1
-		{
-			set adjBurnTime to burnTime.
-			set shortBurn to true.
-			set burnTime to getManueverTime(targetMan:deltav:mag, burnTime).
-		}
-		else{
-			set adjBurnTime to burnTime.
-		}
-		print "Burn time: " + round (burnTime,2) + " seconds".
+		////Testing short maneuver timer
+		// if burnTime < 1
+		// {
+			// set adjBurnTime to burnTime.
+			// set adjBurnTime to getManueverTime(targetMan:deltav:mag, burnTime).
+		// }
+		// else{
+			// set adjBurnTime to burnTime.
+		// }
+		// print "Burn time: " + round (adjBurnTime,2) + " seconds".
 		
-		wait until targetMan:ETA <= (burnTime/2).
-		unlock steering.
-		sas on.
+		//wait until targetMan:ETA <= (adjBurnTime/2).
+		wait until targetMan:ETA <= (BurnTime/2).
+		//unlock steering.
+		//sas on.
 		
-		lock throttle to min(getManueverTime(targetMan:deltav:mag, adjBurnTime), 1).
-		wait burnTime.
+		// lock throttle to min(getManueverTime(targetMan:deltav:mag, burnTime), burnTime).
+		// wait adjBurnTime.
 		
 
 		//lock throttle to 0.
 		
-		circManeuverBurn(orbitAltitude).
+		//circManeuverBurn(orbitAltitude).
 		
-		sas off.
+		//sas off.
+		
+		set done to false.
+		
+		set manThrottle to 0.
+		lock throttle to manThrottle.
+		
+		set done to false.
+		set deltav0 to targetMan:deltav.
+		
+		until done
+		{
+			set maxAcc to shipMaxAccel().
+			set manThrottle to min(targetMan:deltav:mag/maxAcc, 1).
+			
+			if vdot(deltav0, targetMan:deltav) < 0
+			{
+				lock throttle to 0.
+				break.
+			}
+			
+			if targetMan:deltav:mag < 0.1
+			{
+				wait until vdot(deltav0, targetMan:deltav) < 0.5.
+				
+				lock throttle to 0.
+				set done to true.
+			}
+		}
+		
+		
+		
+		
+		
 		lock steering to prograde.
 		lock throttle to 0.
 		
 		remove nextnode.
+	}
+
+	function shipMaxAccel
+	{
+		set maxAccel to ship:maxthrust/ship:mass.
+		return maxAccel.
 	}
 	
 	function tempTechReadout

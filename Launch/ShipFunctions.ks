@@ -63,6 +63,7 @@ parameter orbitAlt.
 	parameter dv.
 	//Testing burns < 1 second.=
 	parameter thrustLimiter.
+	set thrustLimiter to min(thrustLimiter, 1).
 	
 	
 	updateActiveEngines().

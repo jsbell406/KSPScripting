@@ -65,7 +65,7 @@ until ship:apoapsis >= (orbitAltitude)
 		//technicalReadout().
 		thrustCalculations().
 		steerShipJames().
-		tempTechReadout(orbitAltitude, activeThrottle).
+		//tempTechReadout(orbitAltitude, activeThrottle).
 		
 		set activeThrottle to adjustThrottle(1.5,activeThrottle).
 		lock throttle to activeThrottle.
@@ -78,7 +78,7 @@ until ship:apoapsis >= (orbitAltitude)
 		//technicalReadout().
 		thrustCalculations().
 		steerShipJames().
-		tempTechReadout(orbitAltitude, activeThrottle).
+		//tempTechReadout(orbitAltitude, activeThrottle).
 		
 		//set thrustLim to thrustLimiter(orbitAltitude).
 		set activeThrottle to adjustThrottle(0.75 , activeThrottle).
