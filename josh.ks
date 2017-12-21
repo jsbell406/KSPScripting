@@ -9,7 +9,8 @@ parameter orbitAltitude.
 //Set to path of file needing to be copied
 set files to list(	"Launch/joshlaunch.ks","Launch/positionfunctions.ks","Launch/enginefunctions.ks",
 					"Launch/shipfunctions.ks","Launch/launchfunctions.ks","Launch/joshfunctions.ks",
-					"Launch/mathfunctions.ks", "Launch/jamesfunctions.ks", "lib.ks").
+					"Launch/mathfunctions.ks", "Launch/jamesfunctions.ks", "Launch/ManeuverFunctions",
+					"lib.ks").
 
 
 For file in files

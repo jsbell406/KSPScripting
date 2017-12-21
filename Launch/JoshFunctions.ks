@@ -71,14 +71,14 @@ parameter orbitAltitude.
 		}
 		until targetMan:ORBIT:PERIAPSIS > (orbitAltitude - (orbitAltitude / 100)) 
 		{
-			set targetMan:PROGRADE to targetMan:PROGRADE + 0.001.
+			set targetMan:PROGRADE to targetMan:PROGRADE + 0.01.
 			clearscreen.
 			print "dV use: " + round(targetMan:PROGRADE,2).
 		}
 		
 		until targetMan:ORBIT:ECCENTRICITY <= 0.001
 		{
-			set targetMan:PROGRADE to targetMan:PROGRADE + 0.0001.
+			set targetMan:PROGRADE to targetMan:PROGRADE + 0.001.
 			clearscreen.
 			print "dV use: " + round(targetMan:PROGRADE,2).
 		}
@@ -118,15 +118,14 @@ parameter orbitAltitude.
 		
 		lock throttle to min(getManueverTime(targetMan:deltav:mag, adjBurnTime), 1).
 		wait burnTime.
-		sas off.
-				
-		lock steering to prograde.
-		lock throttle to 0.
 		
-		until periapsis >= orbitAltitude
-		{
-			lock throttle to 0.1.
-		}
+
+		//lock throttle to 0.
+		
+		circManeuverBurn(orbitAltitude).
+		
+		sas off.
+		lock steering to prograde.
 		lock throttle to 0.
 		
 		remove nextnode.

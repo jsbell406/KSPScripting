@@ -12,4 +12,5 @@ function lib
 	RUN ONCE EngineFunctions.ks(orbitAltitude).
 	RUN ONCE JoshFunctions.ks(orbitAltitude).
 	RUN ONCE JamesFunctions.ks(orbitAltitude).
+	RUN ONCE ManeuverFunctions.ks(orbitAltitude).
 	}
