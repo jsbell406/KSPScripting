@@ -19,3 +19,11 @@ function getMunInsertAngle {
 	set angle to 180-((sqrt(((((r4+r2)+(r6+r2))/2)/(r6+r2))^3))*180).
 	print angle.
 }
+function setMunInterceptManuNode {
+	getMunInsertAngle().
+	set currAngle to ship:ROTATIONANGLE. 
+	set munAngle to Mun:ROTATIONANGLE.
+	print currAngle - munAngle.
+	print munAngle - currAngle.
+	
+}
