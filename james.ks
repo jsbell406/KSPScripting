@@ -28,8 +28,6 @@ switch to 1.
 if testScript = false
 {
 
-
-
 	run JamesLaunch.ks(orbitalHeight).
 }
 else
