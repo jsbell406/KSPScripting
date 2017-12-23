@@ -139,6 +139,7 @@ parameter orbitAltitude.
 		{
 			set maxAcc to shipMaxAccel().
 			set manThrottle to min(targetMan:deltav:mag/maxAcc, 1).
+			aspStageReady().
 			
 			if vdot(deltav0, targetMan:deltav) < 0
 			{
@@ -160,7 +161,7 @@ parameter orbitAltitude.
 		
 		
 		lock steering to prograde.
-		lock throttle to 0.
+		unlock throttle.
 		
 		remove nextnode.
 	}

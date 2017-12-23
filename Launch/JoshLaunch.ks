@@ -28,6 +28,8 @@ wait 1.
 firstStageIgnition().
 wait 0.05.
 releaseLaunchClamps().
+//Testing of Cheat staging script
+stage.
 
 	
 // UNTIL ship:apoapsis >= orbitAltitude
@@ -65,6 +67,7 @@ until ship:apoapsis >= (orbitAltitude)
 		//technicalReadout().
 		thrustCalculations().
 		steerShipJames().
+		aspStageReady().
 		//tempTechReadout(orbitAltitude, activeThrottle).
 		
 		set activeThrottle to adjustThrottle(1.5,activeThrottle).
@@ -78,10 +81,11 @@ until ship:apoapsis >= (orbitAltitude)
 		//technicalReadout().
 		thrustCalculations().
 		steerShipJames().
+		aspStageReady().
 		//tempTechReadout(orbitAltitude, activeThrottle).
 		
 		//set thrustLim to thrustLimiter(orbitAltitude).
-		set activeThrottle to adjustThrottle(0.75 , activeThrottle).
+		set activeThrottle to adjustThrottle(1 , activeThrottle).
 		lock throttle to activeThrottle.
 	}
 }
