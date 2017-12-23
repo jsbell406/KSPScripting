@@ -1,11 +1,11 @@
 // TESTING POTENTIAL STAGING METHODS
 clearscreen.
+parameter orbitalHeight.
 
 // --- IMPORTS ---
 
-RUN ONCE lib.ks(100000).
-
-RUN ONCE EngineFunctions.ks(100000).
+RUN ONCE lib.ks(orbitalHeight).
+RUN ONCE EngineFunctions.ks(orbitalHeight).
 
 // Creates Active stage, From bottom engines to First decoupler
 function createActiveStage
@@ -64,16 +64,19 @@ function createActiveStage
 
 function getActiveStage
 {
+	createActiveStage().
 	return firstStage.
 }
 
 function getActiveFuel
 {
+	createActiveStage().
 	return firstStageFuel.
 }
 
-funtion getActiveDecoupler
+function getActiveDecoupler
 {
+	createActiveStage().
 	return firstStageDecouple.
 }
 
@@ -81,39 +84,46 @@ function updateStageResources
 {
 	set activeOxy to 0.
 	set activeFuel to 0.
+	set oxyCap to 0.
+	set fuelCap to 0.
 	
-	for f in firstStageFuel
+	for f in getActiveFuel()
 	{
-		set fmods to f:modules.
-		for m in fmods
+		set fres to f:resources.
+		for m in fres
 		{
 			if m:name = "LiquidFuel"
 			{
 				set activeFuel to activeFuel + m:amount.
+				set fuelCap to fuelCap + m:capacity.
 			}
 			else if m:name = "Oxidizer"
 			{
 				set activeOxy to activeOxy + m:amount.
+				set oxyCap to oxyCap + m:capacity.
 			}
 		}	
 	}
-	print activeOxy.
-	print activeFuel.
 }
 
 function autoStage
 {
+	
+	if activeOxy = 0 AND activeFuel = 0
+	{
+		set d to getActiveDecoupler().
 
+		for de in d 
+		{
+			de:getModule("ModuleDecouple"):doevent("Decouple").
+		}
 
+		updateActiveEngines().
+		wait 1.
+		startActiveEngines().
+	}
 }
 
-createActiveStage.
-print "------ active stage -------".
-print getActiveStage.
-print "-------- fuel -------------".
-print firstStageFuel.
-print "-------- decoupler --------".
-print firstStageDecouple.
 
 
 

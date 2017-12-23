@@ -1,29 +1,38 @@
 CLEARSCREEN. 
-parameter orbitalHeight.
-
-
+parameter orbitAltitude.
 // --- IMPORTS ---
-
-	RUN ONCE lib.ks(orbitalHeight).
-
+	// RUN ONCE PositionFunctions.ks(orbitAltitude).
+	// RUN ONCE LaunchFunctions.ks(orbitAltitude).
+	// RUN ONCE ShipFunctions.ks(orbitAltitude).
+	// RUN ONCE MathFunctions.ks(orbitAltitude).
+	// RUN ONCE EngineFunctions.ks(orbitAltitude).
+	// RUN ONCE JoshFunctions.ks(orbitAltitude).
+	// RUN ONCE JamesFunctions.ks(orbitAltitude).
+	RUN ONCE lib.ks(orbitAltitude).
+	RUN ONCE JamesTest.ks(orbitAltitude).
+	
+//SWITCH TO 1.
+//COPYPATH("0:/UserFunctions.KS","").
+//COPYPATH("0:/new.KS","").
+lib(orbitAltitude).
 createStartingPosition().
-deployOrbitalAnchor(orbitalHeight).
-
+deployOrbitalAnchor(orbitAltitude).
+thrustCalculations().
 getLaunchClamps().
 createFirstStage().
 
 
 set activeThrottle to 1.
+//set actHeading to 90.
 wait 1.
 lock throttle to activeThrottle.
 wait 1.
 firstStageIgnition().
 wait 0.05.
-releaseLaunchClamps().
-wait 1.
+//releaseLaunchClamps().
 
 	
-UNTIL SHIP:STATUS <> "FLYING"
+UNTIL SHIP:STATUS <> "PRELAUNCH"
 { 
 	thrustCalculations().
 	technicalReadout().
@@ -33,6 +42,8 @@ UNTIL SHIP:STATUS <> "FLYING"
 	lock throttle to activeThrottle.
 	print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
 	print "Actual Throttle:	" + activeThrottle.
+	autoStage().
+	updateStageResources().
 
 	
 }
