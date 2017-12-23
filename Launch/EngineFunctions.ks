@@ -13,6 +13,7 @@ parameter orbitAlt.
 
 	LIST ENGINES IN myEngines.
 	set activeEnginesList to list().
+	set firstStageEngines to list().
 
 // --- FUNCTIONS ---
 
@@ -20,7 +21,7 @@ parameter orbitAlt.
 	// creates list of first stage engines
 	function createFirstStage
 	{
-		set firstStageEngines to list().
+		
 		for eng in myEngines
 		{		
 			if eng:children:length = 0
