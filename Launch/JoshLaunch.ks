@@ -96,7 +96,7 @@ lock steering to prograde.
 planCircManeuver(orbitAltitude).
 execManeuver(orbitAltitude).
 
-lock throttle to 0.
+set ship:control:mainthrottle to 0.
 lock steering to prograde.
 
 clearscreen.
