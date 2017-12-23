@@ -67,9 +67,38 @@ function getActiveStage
 	return firstStage.
 }
 
+function getActiveFuel
+{
+	return firstStageFuel.
+}
+
+funtion getActiveDecoupler
+{
+	return firstStageDecouple.
+}
+
 function updateStageResources
 {
-
+	set activeOxy to 0.
+	set activeFuel to 0.
+	
+	for f in firstStageFuel
+	{
+		set fmods to f:modules.
+		for m in fmods
+		{
+			if m:name = "LiquidFuel"
+			{
+				set activeFuel to activeFuel + m:amount.
+			}
+			else if m:name = "Oxidizer"
+			{
+				set activeOxy to activeOxy + m:amount.
+			}
+		}	
+	}
+	print activeOxy.
+	print activeFuel.
 }
 
 function autoStage
