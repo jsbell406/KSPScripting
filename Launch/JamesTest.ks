@@ -18,6 +18,7 @@ function createActiveStage
 	set firstStage to getFirstStageEngines().
 	set firstStageCopy to firstStage:copy.
 	set firstStageFuel to firstStage:copy.
+	set firstStageDecouple list().
 
 	// --- BEGIN ---
 	
@@ -29,16 +30,32 @@ function createActiveStage
 		set firstStageCopy to firstStage:copy.
 		for part in firstStageCopy
 		{
-			if firstStage:contains(part:parent) = false
-			{
-				firstStage:add(part:parent).
-			}
 			set partModules to part:parent:modules.
 			set mod to partModules:contains("ModuleDecouple").
+			set fuel to part:resources.
+			if fuel:length > 0
+			{
+				for fu in fuel
+				{
+					if fu:name = "LiquidFuel" OR fu:name = "Oxidizer"
+					{
+						firstStageFuel:add(fu).
+					}
+					print "NA " + fu:name.
+				}
+			}
+			
+
+			print fuel.
 
 			if mod = true
 			{
 				set valid to true.
+			}
+
+			if firstStage:contains(part:parent) = false
+			{
+				firstStage:add(part:parent).
 			}
 		}	
 	} 
@@ -53,6 +70,7 @@ function updateStageResources
 {
 
 }
+
 function autoStage
 {
 
