@@ -98,3 +98,4 @@ execManeuver(orbitAltitude).
 
 clearscreen.
 print "Orbit complete at " + orbitAltitude + "m.".
+setMunInterceptManuNode().
