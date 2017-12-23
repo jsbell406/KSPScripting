@@ -5,7 +5,10 @@ parameter orbitAltitude.
 
 //Easier file copying
 
-
+if orbitAltitude = 1
+{
+	set orbitAltitude to 100000.
+}
 //Set to path of file needing to be copied
 set files to list(	"Launch/joshlaunch.ks","Launch/positionfunctions.ks","Launch/enginefunctions.ks",
 					"Launch/shipfunctions.ks","Launch/launchfunctions.ks","Launch/joshfunctions.ks",
