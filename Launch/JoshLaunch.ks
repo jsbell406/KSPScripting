@@ -92,5 +92,8 @@ lock steering to prograde.
 planCircManeuver(orbitAltitude).
 execManeuver(orbitAltitude).
 
+lock throttle to 0.
+lock steering to prograde.
+
 clearscreen.
 print "Orbit complete at " + orbitAltitude + "m.".
