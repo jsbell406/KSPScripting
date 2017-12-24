@@ -85,7 +85,7 @@ until ship:apoapsis >= (orbitAltitude)
 		//tempTechReadout(orbitAltitude, activeThrottle).
 		
 		//set thrustLim to thrustLimiter(orbitAltitude).
-		set activeThrottle to adjustThrottle(1 , activeThrottle).
+		set activeThrottle to adjustThrottle(1.2 , activeThrottle).
 		lock throttle to activeThrottle.
 	}
 }
