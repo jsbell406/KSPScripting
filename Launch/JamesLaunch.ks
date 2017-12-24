@@ -20,6 +20,9 @@ deployOrbitalAnchor(orbitAltitude).
 thrustCalculations().
 getLaunchClamps().
 createFirstStage().
+createActiveStage().
+updateStageResources().
+updateActiveEngines().
 
 
 set activeThrottle to 1.
@@ -27,7 +30,7 @@ set activeThrottle to 1.
 wait 1.
 lock throttle to activeThrottle.
 wait 1.
-firstStageIgnition().
+startActiveEngines().
 wait 0.05.
 //releaseLaunchClamps().
 
@@ -42,8 +45,9 @@ UNTIL SHIP:STATUS <> "PRELAUNCH"
 	lock throttle to activeThrottle.
 	print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
 	print "Actual Throttle:	" + activeThrottle.
+	
 	autoStage().
-	updateStageResources().
+	
 
 	
 }

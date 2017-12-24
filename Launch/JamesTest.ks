@@ -11,6 +11,9 @@ RUN ONCE EngineFunctions.ks(orbitalHeight).
 	set firstStageCopy to firstStage:copy.
 	set firstStageFuel to list().
 	set firstStageDecouple to list().
+
+
+	
 // Creates Active stage, From bottom engines to First decoupler
 function createActiveStage
 {
@@ -88,6 +91,7 @@ function updateStageResources
 	set oxyCap to 0.
 	set fuelCap to 0.
 	
+	print "firststagefuel " + firstStageFuel.
 	for f in firstStageFuel
 	{
 		set fres to f:resources.
@@ -95,13 +99,13 @@ function updateStageResources
 		{
 			if m:name = "LiquidFuel"
 			{
-				set activeFuel to activeFuel + m:amount.
-				set fuelCap to fuelCap + m:capacity.
+				set activeFuel to Round(activeFuel + m:amount,1).
+				set fuelCap to Round(fuelCap + m:capacity,1).
 			}
 			else if m:name = "Oxidizer"
 			{
-				set activeOxy to activeOxy + m:amount.
-				set oxyCap to oxyCap + m:capacity.
+				set activeOxy to Round(activeOxy + m:amount,1).
+				set oxyCap to Round(oxyCap + m:capacity,1).
 			}
 		}	
 	}
@@ -110,16 +114,25 @@ function updateStageResources
 function autoStage
 {
 	updateStageResources().
-	print activeOxy.
+	print "activeoxy" + activeOxy.
+	print getActiveEngines().
 	if activeOxy = 0 
 	{
 		set d to getActiveDecoupler().
 
 		for de in d 
 		{
-			de:getModule("ModuleDecouple"):doevent("Decouple").
+			set partModules to de:modules.
+			set dec to partModules:contains("ModuleDecouple").
+			if dec = true
+			{
+				de:getModule("ModuleDecouple"):doevent("Decouple").
+				createActiveStage().
+				print "Decouple".
+			}
+			
 		}
-
+		updateStageResources().
 		updateActiveEngines().
 		wait 1.
 		startActiveEngines().
