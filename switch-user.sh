@@ -28,7 +28,7 @@ echo "Switching users to [$1]"
 case $OPTION in
     james)
         if [[-f ~/.james_config ]]
-            yes | cp -rf ~/.james_config ~/.gitconfig > 
+            yes | cp -rf ~/.james_config ~/.gitconfig
             source ~/.gitconfig
         fi
     ;;
@@ -43,7 +43,7 @@ case $OPTION in
         echo "Unknown User [$1]"
         echo "Usage: $0 [username ]"
         echo ""
-        echo "Make sure ~/.git_$1 profile exists"
+        echo "Make sure ~/.$1_config profile exists"
         echo ""
     ;;
 esac
