@@ -110,7 +110,7 @@ function updateStageResources
 function autoStage
 {
 	updateStageResources().
-	
+	print activeOxy.
 	if activeOxy = 0 
 	{
 		set d to getActiveDecoupler().
