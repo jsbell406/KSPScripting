@@ -11,19 +11,17 @@ function aspStageReady {
 	}
 }
 
-function getMunInsertAngle {
-	set r2 to body:radius/1000.
-	set r4 to ship:altitude/1000.
-	set r6 to 12000.
+function setLunarManu {
+	set targetMan to node(time:seconds + 100, 0, 0, -5).
+	add targetMan.
 	
-	set angle to 180-((sqrt(((((r4+r2)+(r6+r2))/2)/(r6+r2))^3))*180).
-	print angle.
-}
-function setMunInterceptManuNode {
-	getMunInsertAngle().
-	set currAngle to ship:ROTATIONANGLE. 
-	set munAngle to Mun:ROTATIONANGLE.
-	print currAngle - munAngle.
-	print munAngle - currAngle.
-	
+	until targetMan:orbit:apoapsis > 12000000 {
+		set targetMan:prograde to targetMan:prograde + 1.
+	}
+	until targetMan:orbit:hasnextpatch {
+		set targetMan:eta to targetMan:eta + 1.
+	}
+	until targetMan:orbit:nextpatch:periapsis < 20000 {
+		set targetMan:eta to targetMan:eta + 0.1.
+	}
 }
