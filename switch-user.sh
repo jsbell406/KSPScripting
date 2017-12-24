@@ -1,31 +1,50 @@
 #!/usr/bin/env bash
 
-# Scritp for James to switch ,gitconfig users
-# TODO - Needs testing
+################################################################################
+# Script for James to switch ,gitconfig users
+#
+# Usage.....: switch-user.sh username
+# Example...: switch-user.sh james
+#
+# Note: ~/ is the uers home directory. On Windows = C:\Users\<user-name>
+# 
+#      ~/ must contain the configuration file that you want
+#      to swtich "to", in this case: ~/.james_config
+#
+################################################################################
 
+# TODO - James - Needs full testing
+
+# exit on any error
 set -e
 
-# local variables
+# load first parameter form user
 OPTION=$1
 
 clear
 echo "Switching users to [$1]"  
+
+# start optional switch
 case $OPTION in
     james)
         if [[-f ~/.james_config ]]
-            cp -u ~/.james_config ~/.gitconfig
+            yes | cp -rf ~/.james_config ~/.gitconfig > 
             source ~/.gitconfig
         fi
     ;;
     buddy)
         if [[-f ~/.buddy_config ]]
-            cp -u ~/.buddy_config ~/.gitconfig
+            yes | cp -rf ~/.buddy_config ~/.gitconfig
             source ~/.gitconfig
         fi
     ;;
     *)
+        # if $1 us unknown, display a how-to message
         echo "Unknown User [$1]"
-        echo "Nothing To Do, Bye!!"
+        echo "Usage: $0 [username ]"
+        echo ""
+        echo "Make sure ~/.git_$1 profile exists"
+        echo ""
     ;;
 esac
 
