@@ -28,7 +28,7 @@ wait 1.
 //firstStageIgnition().
 stage.
 wait 0.05.
-releaseLaunchClamps().
+//releaseLaunchClamps().
 
 	
 // UNTIL ship:apoapsis >= orbitAltitude
@@ -85,7 +85,7 @@ until ship:apoapsis >= (orbitAltitude)
 		//tempTechReadout(orbitAltitude, activeThrottle).
 		
 		//set thrustLim to thrustLimiter(orbitAltitude).
-		set activeThrottle to adjustThrottle(0.75 , activeThrottle).
+		set activeThrottle to adjustThrottle(1.2 , activeThrottle).
 		lock throttle to activeThrottle.
 	}
 }
@@ -98,4 +98,16 @@ execManeuver(orbitAltitude).
 
 clearscreen.
 print "Orbit complete at " + orbitAltitude + "m.".
-SET isDone TO TRUE.
+//SET isDone TO TRUE.
+//setLunarManu().
+//if nextnode:eta > 400 {
+	//until nextnode:eta < 400{
+		//timWarp(nextnode:eta - 400).
+		//wait 0.5.
+		//when Kuniverse:timewarp:rate = 1 then {
+			//remove nextnode.
+			//setLunarManu().
+		//}
+	//}	
+//}
+//execManeuver(orbitAltitude).

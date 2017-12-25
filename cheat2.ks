@@ -16,3 +16,6 @@ thrustCalculations().
 getLaunchClamps().
 createFirstStage().
 setLunarManu().
+timWarp(nextnode:eta - 240).
+wait 5.
+execManeuver(orbitAltitude).
