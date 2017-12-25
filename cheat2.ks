@@ -24,6 +24,6 @@ timWarp(ship:orbit:nextpatcheta).
 wait until orbit:body:name = "mun".	
 wait 5.
 timWarp(eta:periapsis - 60).
-wait until eta:periapsis - 50.
+wait eta:periapsis - 50.
 setCircOrbNode().
 
