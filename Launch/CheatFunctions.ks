@@ -52,18 +52,6 @@ function cheatExecManeuver
 		// print "Burn time: " + round (adjBurnTime,2) + " seconds".
 		//wait until targetMan:ETA <= (adjBurnTime/2).
 		wait until targetMan:ETA <= (BurnTime/2).
-		//unlock steering.
-		//sas on.
-		
-		// lock throttle to min(getManueverTime(targetMan:deltav:mag, burnTime), burnTime).
-		// wait adjBurnTime.
-		
-
-		//lock throttle to 0.
-		
-		//circManeuverBurn(orbitAltitude).
-		
-		//sas off.
 		
 		set done to false.
 		
@@ -94,12 +82,20 @@ function cheatExecManeuver
 			}
 		}
 		
-		
-		
-		
-		
 		lock steering to prograde.
 		unlock throttle.
 		
 		remove nextnode.
 	}
+function setCircOrbNode {
+	set targetMan to node(time:seconds + eta:periapsis, 0, 0, -5).
+	add targetMan.
+
+	until targetMan:ORBIT:PERIAPSIS < 20000 
+		{
+			set targetMan:PROGRADE to targetMan:PROGRADE - 1.
+			clearscreen.
+			print "dV use: " + round(targetMan:PROGRADE, 2).
+		}
+		
+}

@@ -16,6 +16,14 @@ thrustCalculations().
 getLaunchClamps().
 createFirstStage().
 setLunarManu().
-timWarp(nextnode:eta - 240).
+//timWarp(nextnode:eta - 240).
+//wait 5.
+cheatExecManeuver(orbitAltitude).
+wait 5. 
+timWarp(ship:orbit:nextpatcheta).
+wait until orbit:body:name = "mun".	
 wait 5.
-execManeuver(orbitAltitude).
+timWarp(eta:periapsis - 60).
+wait until eta:periapsis - 50.
+setCircOrbNode().
+
