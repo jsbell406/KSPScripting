@@ -19,7 +19,7 @@ gui:SHOW().
 // to happen:
 global isDone IS FALSE.
 function myClickChecker {
-run CheatLaunch(orbitAltitude).
+run Cheat.ks(orbitAltitude).
 }
 SET ok:ONCLICK TO myClickChecker@. // This could also be an anonymous function instead.
 wait until isDone.
