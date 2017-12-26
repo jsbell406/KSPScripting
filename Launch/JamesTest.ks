@@ -19,8 +19,10 @@ function createActiveStage
 {
 	// Starting point is bottom engines of the craft createFirstStage lives in engine functions.
 	createFirstStage().
+	set mod to false.
 
 	// --- LISTS ---
+	set partModules to list().
 
 
 
@@ -34,8 +36,23 @@ function createActiveStage
 		set firstStageCopy to firstStage:copy.
 		for part in firstStageCopy
 		{
-			set partModules to part:parent:modules.
-			set mod to partModules:contains("ModuleDecouple").
+			//set parpar to part:parent.
+			//set partModules to parpar:modules.
+			print part.
+			print part:parent.
+
+			//if partModules:length > 0
+			//{
+				//set partModules to part:parent:modules.
+				//set mod to partModules:contains("ModuleDecouple").
+			//}
+			
+			set partModules to part:modules.
+			if partModules:length > 0 
+			{
+				set mod to partModules:contains("ModuleDecouple").
+			}
+
 			set fuel to part:resources.
 
 			if fuel:length > 0
@@ -58,10 +75,14 @@ function createActiveStage
 				set valid to true.
 			}
 
-			if firstStage:contains(part:parent) = false
+			if part:hasparent = true
 			{
-				firstStage:add(part:parent).
+				if firstStage:contains(part:parent) = false
+				{
+					firstStage:add(part:parent).
+				}
 			}
+			
 		}	
 	} 
 }
