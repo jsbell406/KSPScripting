@@ -1,4 +1,9 @@
 // TESTING POTENTIAL STAGING METHODS
+
+
+
+// TO DO 
+// Decoupler and fuel tanks not updating after decouple
 clearscreen.
 parameter orbitalHeight.
 
@@ -7,28 +12,31 @@ parameter orbitalHeight.
 RUN ONCE lib.ks(orbitalHeight).
 RUN ONCE EngineFunctions.ks(orbitalHeight).
 
-	set firstStage to getFirstStageEngines().
-	set firstStageCopy to firstStage:copy.
+	set firstStage to list().
+	set firstStageCopy to list().
 	set firstStageFuel to list().
 	set firstStageDecouple to list().
-
-
+	set partModules to list().
 	
 // Creates Active stage, From bottom engines to First decoupler
 function createActiveStage
 {
 	// Starting point is bottom engines of the craft createFirstStage lives in engine functions.
-	createFirstStage().
+	updateActiveEngines().
 	set mod to false.
 
 	// --- LISTS ---
-	set partModules to list().
+	partModules:clear().
+	firstStage:clear().
+	firstStageCopy:clear().
+	firstStageDecouple:clear().
+	firstStageFuel:clear().
 
-
+	set firstStage to getActiveEngines().
+	set firstStageCopy to firstStage:copy.
 
 	// --- BEGIN ---
 	
-	set firstStageCopy to firstStage:copy.
 
 	set valid to false.
 	until valid
@@ -38,8 +46,7 @@ function createActiveStage
 		{
 			//set parpar to part:parent.
 			//set partModules to parpar:modules.
-			print part.
-			print part:parent.
+	
 
 			//if partModules:length > 0
 			//{
@@ -51,6 +58,7 @@ function createActiveStage
 			if partModules:length > 0 
 			{
 				set mod to partModules:contains("ModuleDecouple").
+				//print mod.
 			}
 
 			set fuel to part:resources.
@@ -71,8 +79,9 @@ function createActiveStage
 			
 			if mod = true
 			{
-				firstStageDecouple:add(part:parent).
+				firstStageDecouple:add(part).
 				set valid to true.
+				//break.
 			}
 
 			if part:hasparent = true
@@ -82,27 +91,12 @@ function createActiveStage
 					firstStage:add(part:parent).
 				}
 			}
-			
 		}	
 	} 
-}
-
-function getActiveStage
-{
-	createActiveStage().
-	return firstStage.
-}
-
-function getActiveFuel
-{
-	createActiveStage().
-	return firstStageFuel.
-}
-
-function getActiveDecoupler
-{
-	createActiveStage().
-	return firstStageDecouple.
+	print "------decouple------".
+	print firstStageDecouple.
+	print "------decouple------".
+	wait 5.
 }
 
 function updateStageResources
@@ -136,26 +130,59 @@ function autoStage
 {
 	updateStageResources().
 	print "activeoxy" + activeOxy.
-	print getActiveEngines().
+	print "decoupler" + getActiveDecoupler().
+	//print getActiveEngines().
 	if activeOxy = 0 
 	{
 		set d to getActiveDecoupler().
+		print "active engines" + getActiveEngines().
+		print "decoupler" + getActiveDecoupler().
 
 		for de in d 
 		{
 			set partModules to de:modules.
-			set dec to partModules:contains("ModuleDecouple").
-			if dec = true
-			{
-				de:getModule("ModuleDecouple"):doevent("Decouple").
-				createActiveStage().
-				print "Decouple".
-			}
-			
+			de:getModule("ModuleDecouple"):doevent("Decouple").
+			//createActiveStage().
+			print "Decouple".
 		}
+
 		updateStageResources().
-		updateActiveEngines().
+		print "after Decouple".
 		wait 1.
+		print "after wait".
+		updateActiveEngines().
+		print "active engines" + getActiveEngines().
+		wait 1.
+		updateStageResources().
+		//createActiveStage().
+		updateStageResources().
+		wait 1.
+		print "decoupler" + getActiveDecoupler().
+		wait 1.
+		print "activeoxy" + activeOxy.
+		wait 1.
+		print "active engines" + getActiveEngines().
+		wait 1.
+
+		updateStageResources().
 		startActiveEngines().
 	}
+}
+
+function getActiveStage
+{
+	//createActiveStage().
+	return firstStage.
+}
+
+function getActiveFuel
+{
+	//createActiveStage().
+	return firstStageFuel.
+}
+
+function getActiveDecoupler
+{
+	//createActiveStage().
+	return firstStageDecouple.
 }

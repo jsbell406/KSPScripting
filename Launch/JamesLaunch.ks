@@ -37,16 +37,17 @@ wait 0.05.
 	
 UNTIL SHIP:STATUS <> "PRELAUNCH"
 { 
-	thrustCalculations().
-	technicalReadout().
+	//thrustCalculations().
+	//technicalReadout().
 	//positionReadout().
 	steerShipJames().
 	set activeThrottle to adjustThrottle(1.5,activeThrottle).
 	lock throttle to activeThrottle.
-	print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
-	print "Actual Throttle:	" + activeThrottle.
+	//print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
+	//print "Actual Throttle:	" + activeThrottle.
 	
 	autoStage().
+	createActiveStage().
 	
 
 	
