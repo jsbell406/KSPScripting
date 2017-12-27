@@ -47,10 +47,7 @@ UNTIL SHIP:STATUS <> "PRELAUNCH"
 	//print "Actual Throttle:	" + activeThrottle.
 	
 	autoStage().
-	createActiveStage().
-	
 
-	
 }
 wait 0.5.
 

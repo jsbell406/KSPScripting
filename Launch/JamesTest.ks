@@ -2,8 +2,7 @@
 
 
 
-// TO DO 
-// Decoupler and fuel tanks not updating after decouple
+// TO-DO: Decoupler and fuel tanks not updating after decouple
 clearscreen.
 parameter orbitalHeight.
 
@@ -44,16 +43,6 @@ function createActiveStage
 		set firstStageCopy to firstStage:copy.
 		for part in firstStageCopy
 		{
-			//set parpar to part:parent.
-			//set partModules to parpar:modules.
-	
-
-			//if partModules:length > 0
-			//{
-				//set partModules to part:parent:modules.
-				//set mod to partModules:contains("ModuleDecouple").
-			//}
-			
 			set partModules to part:modules.
 			if partModules:length > 0 
 			{
@@ -117,7 +106,7 @@ function updateStageResources
 				set activeFuel to Round(activeFuel + m:amount,1).
 				set fuelCap to Round(fuelCap + m:capacity,1).
 			}
-			else if m:name = "Oxidizer"
+			if m:name = "Oxidizer"
 			{
 				set activeOxy to Round(activeOxy + m:amount,1).
 				set oxyCap to Round(oxyCap + m:capacity,1).
@@ -150,20 +139,17 @@ function autoStage
 		print "after Decouple".
 		wait 1.
 		print "after wait".
-		updateActiveEngines().
+		
 		print "active engines" + getActiveEngines().
 		wait 1.
 		updateStageResources().
 		//createActiveStage().
-		updateStageResources().
-		wait 1.
 		print "decoupler" + getActiveDecoupler().
 		wait 1.
 		print "activeoxy" + activeOxy.
 		wait 1.
 		print "active engines" + getActiveEngines().
 		wait 1.
-
 		updateStageResources().
 		startActiveEngines().
 	}
