@@ -14,19 +14,21 @@ parameter orbitAltitude.
 //COPYPATH("0:/UserFunctions.KS","").
 //COPYPATH("0:/new.KS","").
 lib(orbitAltitude).
-createStartingPosition().
-deployOrbitalAnchor(orbitAltitude).
+//createStartingPosition().
+//deployOrbitalAnchor(orbitAltitude).
 thrustCalculations().
-getLaunchClamps().
-createFirstStage().
+//getLaunchClamps().
+//createFirstStage().
 
 set activeThrottle to 1.
+print "throttle up".
 //set actHeading to 90.
 wait 1.
 lock throttle to activeThrottle.
 wait 1.
 //firstStageIgnition().
 stage.
+print "Stage!".
 wait 0.05.
 //releaseLaunchClamps().
 

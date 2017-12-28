@@ -21,7 +21,7 @@ copypath ("0:/"+file,"1:").
 }.
 switch to 1.
 //run gui.ks(orbitAltitude).
-run CheatLaunch(orbitAltitude).
+run cheatlaunch.ks(orbitAltitude).
 //Comment t
 //RUN ONCE lib.ks(orbitAltitude).
 //setLunarManu().
