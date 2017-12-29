@@ -11,164 +11,79 @@ parameter orbitalHeight.
 RUN ONCE lib.ks(orbitalHeight).
 RUN ONCE EngineFunctions.ks(orbitalHeight).
 
-	set firstStage to list().
-	set firstStageCopy to list().
-	set firstStageFuel to list().
-	set firstStageDecouple to list().
-	set partModules to list().
-	
 // Creates Active stage, From bottom engines to First decoupler
-function createActiveStage
+function autoStage
 {
-	// Starting point is bottom engines of the craft createFirstStage lives in engine functions.
-	updateActiveEngines().
-	set mod to false.
-
-	// --- LISTS ---
-	partModules:clear().
-	firstStage:clear().
-	firstStageCopy:clear().
-	firstStageDecouple:clear().
-	firstStageFuel:clear().
-
-	set firstStage to getActiveEngines().
-	set firstStageCopy to firstStage:copy.
-
-	// --- BEGIN ---
+	clearscreen.
+	set actE to getActiveEngines().
 	
 
-	set valid to false.
-	until valid
+	for e in actE 
 	{
-		set firstStageCopy to firstStage:copy.
-		for part in firstStageCopy
+		set o to e:flameout.
+		if o = true
 		{
-			set partModules to part:modules.
-			if partModules:length > 0 
+			set huh to mapStage(e).
+			set pee to canIDecouple(huh).
+			if pee = true
 			{
-				set mod to partModules:contains("ModuleDecouple").
-				//print mod.
+				huh:getModule("ModuleDecouple"):doevent("Decouple").
+				return true.
+			}
+		}
+		return false.
+	}
+}
+
+function canIDecouple
+{
+	parameter d.
+	set pm to d:modules.
+	if pm:length > 0 
+	{
+		return pm:contains("ModuleDecouple").
+	}
+	else
+	{
+		return false.
+	}
+}
+
+function mapStage
+{
+	parameter aWhatsIt.
+
+	set s to list().
+	s:add(aWhatsIt).
+	set sc to s:copy.
+
+	set isFatLadySinging to false.
+
+	until isFatLadySinging
+	{
+
+		for p in sc
+		{
+			set pe to canIDecouple(p).
+			if pe = true
+			{
+				return p.
 			}
 
-			set fuel to part:resources.
-
-			if fuel:length > 0
+			if p:hasparent = true
 			{
-				for fu in fuel
+				if s:contains(p:parent) = false
 				{
-					if fu:name = "LiquidFuel" OR fu:name = "Oxidizer"
-					{
-						if firstStageFuel:contains(part) = false
-						{
-							firstStageFuel:add(part).
-						}	
-					}
+					s:add(p:parent). 
+					set isFatLadySinging to false.
+					set sc to s:copy.
 				}
 			}
-			
-			if mod = true
+			else
 			{
-				firstStageDecouple:add(part).
-				set valid to true.
-				//break.
-			}
-
-			if part:hasparent = true
-			{
-				if firstStage:contains(part:parent) = false
-				{
-					firstStage:add(part:parent).
-				}
+				return p.
 			}
 		}	
 	} 
-	print "------decouple------".
-	print firstStageDecouple.
-	print "------decouple------".
-	wait 5.
 }
 
-function updateStageResources
-{
-	set activeOxy to 0.
-	set activeFuel to 0.
-	set oxyCap to 0.
-	set fuelCap to 0.
-	
-	print "firststagefuel " + firstStageFuel.
-	for f in firstStageFuel
-	{
-		set fres to f:resources.
-		for m in fres
-		{
-			if m:name = "LiquidFuel"
-			{
-				set activeFuel to Round(activeFuel + m:amount,1).
-				set fuelCap to Round(fuelCap + m:capacity,1).
-			}
-			if m:name = "Oxidizer"
-			{
-				set activeOxy to Round(activeOxy + m:amount,1).
-				set oxyCap to Round(oxyCap + m:capacity,1).
-			}
-		}	
-	}
-}
-
-function autoStage
-{
-	updateStageResources().
-	print "activeoxy" + activeOxy.
-	print "decoupler" + getActiveDecoupler().
-	//print getActiveEngines().
-	if activeOxy = 0 
-	{
-		set d to getActiveDecoupler().
-		print "active engines" + getActiveEngines().
-		print "decoupler" + getActiveDecoupler().
-
-		for de in d 
-		{
-			set partModules to de:modules.
-			de:getModule("ModuleDecouple"):doevent("Decouple").
-			//createActiveStage().
-			print "Decouple".
-		}
-
-		updateStageResources().
-		print "after Decouple".
-		wait 1.
-		print "after wait".
-		
-		print "active engines" + getActiveEngines().
-		wait 1.
-		updateStageResources().
-		//createActiveStage().
-		print "decoupler" + getActiveDecoupler().
-		wait 1.
-		print "activeoxy" + activeOxy.
-		wait 1.
-		print "active engines" + getActiveEngines().
-		wait 1.
-		updateStageResources().
-		startActiveEngines().
-	}
-}
-
-function getActiveStage
-{
-	//createActiveStage().
-	return firstStage.
-}
-
-function getActiveFuel
-{
-	//createActiveStage().
-	return firstStageFuel.
-}
-
-function getActiveDecoupler
-{
-	//createActiveStage().
-	return firstStageDecouple.
-}

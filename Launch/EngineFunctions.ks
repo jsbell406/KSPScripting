@@ -68,10 +68,11 @@ parameter orbitAlt.
 		{
 			if engine:children:length = 0
 			{
-				if engine:flameout = false
-				{
-					activeEnginesList:ADD(engine).
-				}
+				//if engine:flameout = false
+				//{
+				//	activeEnginesList:ADD(engine).
+				//}
+				activeEnginesList:ADD(engine).
 			}
 		}
 	}

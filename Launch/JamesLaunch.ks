@@ -15,13 +15,10 @@ parameter orbitAltitude.
 //COPYPATH("0:/UserFunctions.KS","").
 //COPYPATH("0:/new.KS","").
 lib(orbitAltitude).
-createStartingPosition().
-deployOrbitalAnchor(orbitAltitude).
+//createStartingPosition().
 thrustCalculations().
-getLaunchClamps().
+//getLaunchClamps().
 createFirstStage().
-createActiveStage().
-updateStageResources().
 updateActiveEngines().
 
 
@@ -46,10 +43,17 @@ UNTIL SHIP:STATUS <> "PRELAUNCH"
 	//print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
 	//print "Actual Throttle:	" + activeThrottle.
 	
-	autoStage().
+	set sta to autoStage().
+	if sta = true
+	{
+		updateActiveEngines().
+		wait 0.5.
+		startActiveEngines().
+	}
+	updateActiveEngines().
 
 }
-wait 0.5.
+//wait 0.5.
 
 UNTIL SHIP:STATUS <> "SUB_ORBITAL"
 {
