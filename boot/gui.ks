@@ -19,7 +19,7 @@ UNTIL isDone
 {
   if (ok:TAKEPRESS){
       gui:HIDE().
-      run cheat.ks(val:TEXT:toscalar).
+      run josh.ks(val:TEXT:toscalar).
       SET isDone TO TRUE.
   }
     
