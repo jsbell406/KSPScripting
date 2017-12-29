@@ -23,7 +23,7 @@ For file in files
 copypath ("0:/"+file,"1:").
 print file + "...".
 print "Loaded.".
-wait 0.1.
+wait 0.01.
 }.
 switch to 1.
 
@@ -34,6 +34,6 @@ if testScript = false
 }
 else
 {
-	run JamesTest.ks.
+	run JamesTest.ks(orbitalHeight).
 }
 

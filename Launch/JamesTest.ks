@@ -11,11 +11,15 @@ parameter orbitalHeight.
 RUN ONCE lib.ks(orbitalHeight).
 RUN ONCE EngineFunctions.ks(orbitalHeight).
 
+
+// --- AUTO STAGE FUNCTIONS ---
+
 // Creates Active stage, From bottom engines to First decoupler
 function autoStage
 {
 	clearscreen.
 	set actE to getActiveEngines().
+	
 	
 
 	for e in actE 
@@ -25,10 +29,20 @@ function autoStage
 		{
 			set huh to mapStage(e).
 			set pee to canIDecouple(huh).
+			set mo to huh:modules.
 			if pee = true
 			{
-				huh:getModule("ModuleDecouple"):doevent("Decouple").
-				return true.
+				if mo:contains("ModuleDecouple")
+				{
+					huh:getModule("ModuleDecouple"):doevent("Decouple").
+					return true.
+				}
+				else if mo:contains("ModuleAnchoredDecoupler")
+				{	
+					huh:getModule("ModuleAnchoredDecoupler"):doevent("Decouple").
+					return true.
+				}
+				
 			}
 		}
 		return false.
@@ -39,9 +53,15 @@ function canIDecouple
 {
 	parameter d.
 	set pm to d:modules.
+	
 	if pm:length > 0 
 	{
-		return pm:contains("ModuleDecouple").
+		if pm:contains("ModuleDecouple") or pm:contains("ModuleAnchoredDecoupler")
+		{
+		
+			return true.
+		}
+		return false.
 	}
 	else
 	{
