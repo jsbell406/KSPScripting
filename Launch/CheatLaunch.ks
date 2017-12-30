@@ -93,13 +93,14 @@ until ship:apoapsis >= (orbitAltitude)
 }
 
 lock throttle to 0.
-lock steering to prograde.
+//lock steering to prograde.
 
 planCircManeuver(orbitAltitude).
 execManeuver(orbitAltitude).
 
 clearscreen.
 print "Orbit complete at " + orbitAltitude + "m.".
+run cheat2.ks(30000).
 //SET isDone TO TRUE.
 //setLunarManu().
 //if nextnode:eta > 400 {

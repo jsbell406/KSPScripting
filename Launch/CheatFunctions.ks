@@ -10,8 +10,56 @@ function aspStageReady {
 		set pmt to maxthrust.
 	}
 }
+function planCircularizationManeuver
+	{
+		parameter orbitAltitude.
+		
+		if orbit:periapsis < orbitAltitude {
+			set upOrDown to "up".
+			set targetMan to node(time:seconds+eta:apoapsis, 0, 0, 0).
+		}
+		else if orbit:hasnextpatch {
+			set upOrDown to "down".
+			set targetMan to node(time:seconds+eta:periapsis, 0, 0, 0).
+		}
+		
+		add targetMan.
+		
+		clearscreen.
+		wait 0.5.
+		print "Selected orbit is " + orbitAltitude + "m.".
+		if upOrDown = "up" {
+			until targetMan:ORBIT:PERIAPSIS > (orbitAltitude - (orbitAltitude / 100)) 
+			{
+				set targetMan:PROGRADE to targetMan:PROGRADE + 1.
+				clearscreen.
+				print "dV use: " + round(targetMan:PROGRADE, 2).
+			}
+			until targetMan:ORBIT:PERIAPSIS > (orbitAltitude - (orbitAltitude / 200)) 
+			{
+				set targetMan:PROGRADE to targetMan:PROGRADE + 0.01.
+				clearscreen.
+				print "dV use: " + round(targetMan:PROGRADE,2).
+			}
+		
+			until targetMan:ORBIT:ECCENTRICITY <= 0.001
+			{
+				set targetMan:PROGRADE to targetMan:PROGRADE + 0.001.
+				clearscreen.
+				print "dV use: " + round(targetMan:PROGRADE,2).
+			}
+		}
+		
+		// until targetMan:ORBIT:PERIAPSIS >= orbitAltitude 
+		// {
+			// set targetMan:PROGRADE to targetMan:PROGRADE + 0.0001.
+			// clearscreen.
+			// print "dV use: " + round(targetMan:PROGRADE,2).
+		// }
+	}
 
 function setLunarManu {
+	parameter orbitAltitude.
 	set targetMan to node(time:seconds + 100, 0, 0, -5).
 	add targetMan.
 	
@@ -21,18 +69,18 @@ function setLunarManu {
 	until targetMan:orbit:hasnextpatch {
 		set targetMan:eta to targetMan:eta + 1.
 	}
-	until targetMan:orbit:nextpatch:periapsis < 20000 {
+	until targetMan:orbit:nextpatch:periapsis < orbitAltitude  {
 		set targetMan:eta to targetMan:eta + 0.1.
 	}
 }
 
 function timWarp {
-parameter lot.
-kuniverse:timewarp:warpto(time:seconds + lot).
+	parameter lot.
+	kuniverse:timewarp:warpto(time:seconds + lot).
 }
 function cheatExecManeuver
 	{
-		parameter orbitAltitude.
+		//parameter orbitAltitude.
 		
 		set targetMan to nextnode.
 		wait 1.
@@ -88,14 +136,34 @@ function cheatExecManeuver
 		remove nextnode.
 	}
 function setCircOrbNode {
+	parameter orbitAltitude.
 	set targetMan to node(time:seconds + eta:periapsis, 0, 0, -5).
 	add targetMan.
 
-	until targetMan:ORBIT:PERIAPSIS < 20000 
+	until targetMan:ORBIT:PERIAPSIS < orbitAltitude 
 		{
 			set targetMan:PROGRADE to targetMan:PROGRADE - 1.
 			clearscreen.
 			print "dV use: " + round(targetMan:PROGRADE, 2).
 		}
 		
+}
+function setCorrectionNode {
+	parameter orbitAltitude.
+	set man to node(time:seconds + 30,0,0,0).
+	add man.
+	if man:orbit:periapsis < orbitAltitude 
+	{
+		until man:orbit:periapsis > orbitAltitude 
+		{
+			set man:radialout to man:radialout + 1.
+		}
+	}
+	else if man:orbit:periapsis > orbitAltitude 
+	{
+		until man:orbit:periapsis < orbitAltitude 
+		{
+			set man:radialout to man:radialout - 1.
+		}
+	}
 }

@@ -2,9 +2,10 @@
 // Create a GUI window
 switch to 0.
 LOCAL gui IS GUI(200).
+run cheat.ks.
 //set orbitAltitude to 100000.
 // Add widgets to the GUI
-LOCAL label IS gui:ADDLABEL("launch to desired orbit").
+LOCAL label IS gui:ADDLABEL("run test script").
 SET label:STYLE:ALIGN TO "CENTER".
 SET label:STYLE:HSTRETCH TO True. // Fill horizontally
 LOCAL ok TO gui:ADDBUTTON("OK").
@@ -19,7 +20,8 @@ UNTIL isDone
 {
   if (ok:TAKEPRESS){
       gui:HIDE().
-      run josh.ks(val:TEXT:toscalar).
+      run cheatlaunch.ks(val:TEXT:toscalar).
+//      run josh.ks(val:TEXT:toscalar).
       SET isDone TO TRUE.
   }
     
