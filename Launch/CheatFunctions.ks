@@ -51,13 +51,13 @@ function planCircularizationManeuver
 		}
 
 		if upOrDown = "down" {
-			until targetMan:ORBIT:apoapsis < (orbitAltitude - (orbitAltitude / 100)) 
+			until targetMan:ORBIT:periapsis < (orbitAltitude + (orbitAltitude / 100)) 
 			{
 				set targetMan:PROGRADE to targetMan:PROGRADE - 1.
 				clearscreen.
 				print "dV use: " + round(targetMan:PROGRADE, 2).
 			}
-			until targetMan:ORBIT:apoapsis < (orbitAltitude - (orbitAltitude / 200)) 
+			until targetMan:ORBIT:periapsis < (orbitAltitude + (orbitAltitude / 200)) 
 			{
 				set targetMan:PROGRADE to targetMan:PROGRADE - 0.01.
 				clearscreen.

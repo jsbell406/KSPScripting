@@ -95,7 +95,7 @@ until ship:apoapsis >= (orbitAltitude)
 lock throttle to 0.
 //lock steering to prograde.
 
-planCircManeuver(orbitAltitude).
+planCircularizationManeuver(orbitAltitude).
 execManeuver(orbitAltitude).
 
 clearscreen.
