@@ -27,26 +27,14 @@ echo "Switching users to [$1]"
 # start optional switch
 case $OPTION in
     james)
-<<<<<<< HEAD
-        if [[-f ~/.james_config ]]
-		then
-=======
         if [[-f ~/.james_config ]] ; then
->>>>>>> 9ff61fc1b6b1395693492cc72f35c82ab9cd071a
             yes | cp -rf ~/.james_config ~/.gitconfig
             source ~/.gitconfig
         fi
     ;;
-<<<<<<< HEAD
     josh)
-        if [[-f ~/.josh_config ]]
-		then
+        if [[-f ~/.josh_config ]] ; then
             yes | cp -rf ~/.josh_config ~/.gitconfig
-=======
-    buddy)
-        if [[-f ~/.buddy_config ]] ; then
-            yes | cp -rf ~/.buddy_config ~/.gitconfig
->>>>>>> 9ff61fc1b6b1395693492cc72f35c82ab9cd071a
             source ~/.gitconfig
         fi
     ;;
