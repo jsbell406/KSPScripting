@@ -1,7 +1,7 @@
 
 //When running script, enter 'run josh.ks(#)' where # is desired orbit.
 
-parameter orbitAltitude.
+//parameter orbitAltitude.
 //set orbitAltitude to 200000.
 //Easier file copying
 
@@ -21,7 +21,7 @@ copypath ("0:/"+file,"1:").
 }.
 switch to 1.
 //run gui.ks(orbitAltitude).
-run cheatlaunch.ks(orbitAltitude).
+//run cheatlaunch.ks(orbitAltitude).
 //Comment t
 //RUN ONCE lib.ks(orbitAltitude).
 //setLunarManu().
