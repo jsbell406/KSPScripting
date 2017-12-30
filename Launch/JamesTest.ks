@@ -1,8 +1,13 @@
 // TESTING POTENTIAL STAGING METHODS
 
+// TO-DO: update variable names to match proper naming conventions
+// TO-DO: document functions for readability and integration into general functions
+// TO-DO: 
 
-
-// TO-DO: Decoupler and fuel tanks not updating after decouple
+// NOTES: mapping stage after engine flameout is slow and most likely wont work in 
+//operation.
+//        Need to pre-map stages and maintain a relation between each engine and their associated
+//        decoupler
 clearscreen.
 parameter orbitalHeight.
 
@@ -14,37 +19,59 @@ RUN ONCE EngineFunctions.ks(orbitalHeight).
 
 // --- AUTO STAGE FUNCTIONS ---
 
-// Creates Active stage, From bottom engines to First decoupler
+// call autoStage to track when an engine runs out of fuel
+// autoStage will decouple the section the out of fuel engine is attached to
+// autoState returns true if a decouple event has occured
 function autoStage
 {
-	clearscreen.
-	set actE to getActiveEngines().
+	// activeEngines is set to any engine that is activated and has fuel
+	// is a list of engines
+	set activeEngines to getActiveEngines().
 	
-	
-
-	for e in actE 
+	// for each engine in activeEngines list......  
+	for engine in activeEngines 
 	{
-		set o to e:flameout.
-		if o = true
+		// is this engine out of fuel? boolean value
+		set isOutOfFuel to engine:flameout.
+
+		if isOutOfFuel = true
 		{
-			set huh to mapStage(e).
-			set pee to canIDecouple(huh).
-			set mo to huh:modules.
-			if pee = true
+			// passes the out of fuel engine to mapStage function
+			// mapStage function returns either a decoupler, or root part of the craft
+			// this part is store in endStagePart
+			set endStagePart to mapStage(engine).
+
+			// checks to see if endStagePart is a decoupler. boolean value
+			set isDecoupler to canIDecouple(endStagePart).
+
+			if isDecoupler = true
 			{
-				if mo:contains("ModuleDecouple")
+				// at this point endStagePart is a decoupler, and shouldn't be the root part
+
+				// get the modules of the decoupler in-line with the out of fuel engine
+				set decouplerModules to endStagePart:modules.
+
+				// decoupler uses a stack decouple system "ModuleDecouple"
+				if decouplerModules:contains("ModuleDecouple")
 				{
-					huh:getModule("ModuleDecouple"):doevent("Decouple").
+					// gets the decouple module and activates it
+					endStagePart:getModule("ModuleDecouple"):doevent("Decouple").
+
+					// decouple
 					return true.
 				}
+				// decoupler uses a radial decouple system "ModuleAnchoredDecoupler"
 				else if mo:contains("ModuleAnchoredDecoupler")
 				{	
-					huh:getModule("ModuleAnchoredDecoupler"):doevent("Decouple").
+					// gets the decouple module and activates it
+					endStagePart:getModule("ModuleAnchoredDecoupler"):doevent("Decouple").
+
+					// decouple
 					return true.
 				}
-				
 			}
 		}
+		// no decouple
 		return false.
 	}
 }
