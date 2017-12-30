@@ -18,7 +18,7 @@ function planCircularizationManeuver
 			set upOrDown to "up".
 			set targetMan to node(time:seconds+eta:apoapsis, 0, 0, 0).
 		}
-		else if orbit:hasnextpatch {
+		else if orbit:hasnextpatch or orbit:apoapsis > orbitAltitude {
 			set upOrDown to "down".
 			set targetMan to node(time:seconds+eta:periapsis, 0, 0, 0).
 		}
@@ -45,6 +45,28 @@ function planCircularizationManeuver
 			until targetMan:ORBIT:ECCENTRICITY <= 0.001
 			{
 				set targetMan:PROGRADE to targetMan:PROGRADE + 0.001.
+				clearscreen.
+				print "dV use: " + round(targetMan:PROGRADE,2).
+			}
+		}
+
+		if upOrDown = "down" {
+			until targetMan:ORBIT:apoapsis < (orbitAltitude - (orbitAltitude / 100)) 
+			{
+				set targetMan:PROGRADE to targetMan:PROGRADE - 1.
+				clearscreen.
+				print "dV use: " + round(targetMan:PROGRADE, 2).
+			}
+			until targetMan:ORBIT:apoapsis < (orbitAltitude - (orbitAltitude / 200)) 
+			{
+				set targetMan:PROGRADE to targetMan:PROGRADE - 0.01.
+				clearscreen.
+				print "dV use: " + round(targetMan:PROGRADE,2).
+			}
+		
+			until targetMan:ORBIT:ECCENTRICITY <= 0.001
+			{
+				set targetMan:PROGRADE to targetMan:PROGRADE - 0.001.
 				clearscreen.
 				print "dV use: " + round(targetMan:PROGRADE,2).
 			}
