@@ -21,7 +21,7 @@ setLunarManu(orbitAltitude).
 until nextnode:eta < 150 {
 
 	if nextnode:eta > 150 {
-		timWarp(nextnode:eta - 100).
+		timWarp(nextnode:eta - 60).
 		wait until kuniverse:timewarp:warp = 0.
 		remove nextnode.
 		setLunarManu(orbitAltitude).
@@ -43,9 +43,13 @@ if orbit:periapsis <  orbitAltitude{
 wait 5.
 timWarp(eta:periapsis - 60).
 wait until kuniverse:timewarp:warp = 0.
-setCircOrbNode(orbitAltitude).
-wait 5.
+
+planCircularizationManeuver(orbitAltitude).
+wait 2.
+
+
 execManeuver(orbitAltitude).
+
 
 
 

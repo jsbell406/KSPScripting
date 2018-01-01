@@ -90,17 +90,25 @@ until ship:apoapsis >= (orbitAltitude)
 		set activeThrottle to adjustThrottle(1.2 , activeThrottle).
 		lock throttle to activeThrottle.
 	}
+	ag1.
 }
 
 lock throttle to 0.
+
 //lock steering to prograde.
 
-planCircManeuver(orbitAltitude).
+planCircularizationManeuver(orbitAltitude).
+
+if nextnode:eta > 60 {
+	timWarp(nextnode:eta - 30).
+	wait until Kuniverse:timewarp:warp = 0. 
+}
 execManeuver(orbitAltitude).
 
 clearscreen.
 print "Orbit complete at " + orbitAltitude + "m.".
-run cheat2.ks(30000).
+//run cheat2.ks(20000).
+//run ml.ks.
 //SET isDone TO TRUE.
 //setLunarManu().
 //if nextnode:eta > 400 {

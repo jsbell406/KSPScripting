@@ -32,15 +32,9 @@ case $OPTION in
             source ~/.gitconfig
         fi
     ;;
-<<<<<<< HEAD
-    buddy)
-        if [[-f ~/.buddy_config ]] ; then
-            yes | cp -rf ~/.buddy_config ~/.gitconfig
-=======
     josh)
         if [[-f ~/.josh_config ]] ; then
             yes | cp -rf ~/.josh_config ~/.gitconfig
->>>>>>> 68970830f0cdcb38ed479acdabeb28f39235eaa6
             source ~/.gitconfig
         fi
     ;;

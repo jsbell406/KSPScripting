@@ -10,7 +10,7 @@
 set files to list(	"Launch/cheatlaunch.ks","Launch/positionfunctions.ks","Launch/enginefunctions.ks",
 					"Launch/shipfunctions.ks","Launch/launchfunctions.ks","Launch/joshfunctions.ks",
 					"Launch/mathfunctions.ks", "Launch/jamesfunctions.ks", "Launch/ManeuverFunctions",
-					"Launch/cheatfunctions.ks","lib.ks","gui.ks","cheat2.ks").
+					"Launch/cheatfunctions.ks","launch/ml.ks","lib.ks","gui.ks","cheat2.ks","Launch/joshLaunch.ks").
 
 
 For file in files
