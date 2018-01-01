@@ -32,7 +32,7 @@ wait 0.05.
 //releaseLaunchClamps().
 
 	
-UNTIL SHIP:STATUS <> "PRELAUNCH"
+UNTIL SHIP:STATUS <> "FLYING"
 { 
 	//thrustCalculations().
 	//technicalReadout().
@@ -43,14 +43,14 @@ UNTIL SHIP:STATUS <> "PRELAUNCH"
 	//print "TWR/TWR(surface):" + round(actTWR, 2) + "/" + round(maxTWR , 2).
 	//print "Actual Throttle:	" + activeThrottle.
 	
-	set sta to autoStage().
-	if sta = true
-	{
-		updateActiveEngines().
-		wait 0.5.
-		startActiveEngines().
-	}
-	updateActiveEngines().
+	// set sta to autoStage().
+	// if sta = true
+	// {
+	// 	updateActiveEngines().
+	// 	wait 0.5.
+	// 	startActiveEngines().
+	// }
+	// updateActiveEngines().
 
 }
 //wait 0.5.

@@ -16,10 +16,113 @@ parameter orbitalHeight.
 RUN ONCE lib.ks(orbitalHeight).
 RUN ONCE EngineFunctions.ks(orbitalHeight).
 
+updateActiveEngines().
+
+list engines in craftEngines.
+set activeEngines to getActiveEngines().
+set enginesLength to craftEngines:length.
+
+set decouplers to list().
+set stageFuel to list().
+set stagePower to list().
+set validResources to list("ElectricCharge","LiquidFuel","Oxydizer").
+set validLiquidFuel to list("LiquidFuel","Oxydizer").
+list parts in craftParts.
+list resources in craftResources.
+set stageParts to list().
+
+//print craftParts.
+set f to craftParts[37].
+set n to isFuelTank(f).
+print f.
+print n.
+
+from {local x to 0.} until x >= enginesLength step {set x to x + 1.}
+DO 
+{
+
+	set engine to craftEngines[x].
+	print x.
+	mapStageTest(engine,x).
+	
+	
+
+	
+	
+	
+}
+print stageParts.
+
+function mapStageTest
+{
+	parameter engine.
+	parameter x.
+	print x.
+	stageParts:add(list()).
+	stageParts[x]:add(engine).
+	set stagePartsCopy to stageParts:copy.
+	set isDone to false.
+
+	until isDone
+	{
+		set switch to false.
+		for part in stagePartsCopy
+		{
+			stageParts[x]:add(part).
+
+			if canIDecouple(part)
+			{
+				decouplers:insert(x,part).
+				set switch to true.
+			}
+			else if part:hasparent = false
+			{
+				set switch to true.
+				decouplers:insert(x,"Stage Doesn't Have a decoupler").
+			}
+			
+			if switch = false
+			{
+				if stageParts[x]:contains(part:parent) = false
+				{
+					stageParts[x]:add(part:parent). 
+					
+					set stagePartsCopy to stageParts:copy.
+				}
+			}
+
+		 	if switch = true
+			{
+				set isDone to true.
+			}
+		}	
+	} 
+}
+
+function isFuelTank 
+{
+	parameter part.
+	set isFT to false.
+
+	if part:resources:length > 0
+	{
+		set partResources to part:resources.
+		for resource in partResources
+		{
+			set resourceName to resource:name.
+			if validLiquidFuel:contains(resourceName)
+			{
+				set isFT to true.
+			}
+		}
+	}
+	return isFT.
+}
 
 // --- AUTO STAGE FUNCTIONS ---
 
-// call autoStage to track when an engine runs out of fuel
+
+// call autoStage to track when an active engine runs out of fuel
 // autoStage will decouple the section the out of fuel engine is attached to
 // autoState returns true if a decouple event has occured
 function autoStage
@@ -38,7 +141,7 @@ function autoStage
 		{
 			// passes the out of fuel engine to mapStage function
 			// mapStage function returns either a decoupler, or root part of the craft
-			// this part is store in endStagePart
+			// this part is stored in endStagePart
 			set endStagePart to mapStage(engine).
 
 			// checks to see if endStagePart is a decoupler. boolean value
@@ -61,7 +164,7 @@ function autoStage
 					return true.
 				}
 				// decoupler uses a radial decouple system "ModuleAnchoredDecoupler"
-				else if mo:contains("ModuleAnchoredDecoupler")
+				else if decouplerModules:contains("ModuleAnchoredDecoupler")
 				{	
 					// gets the decouple module and activates it
 					endStagePart:getModule("ModuleAnchoredDecoupler"):doevent("Decouple").

@@ -1,6 +1,6 @@
 //When running script, enter 'run josh.ks(#)' where # is desired orbit.
 
-set orbitalHeight to 100000.
+set orbitalHeight to 70000.
 
 //Easier file copying
 
@@ -23,17 +23,17 @@ For file in files
 copypath ("0:/"+file,"1:").
 print file + "...".
 print "Loaded.".
-wait 0.1.
+wait 0.01.
 }.
 switch to 1.
 
 if testScript = false
 {
 
-	run JamesLaunch.ks(orbitalHeight).
+	run jamesfunctions.ks(orbitalHeight).
 }
 else
 {
-	run JamesTest.ks.
+	run JamesTest.ks(orbitalHeight).
 }
 

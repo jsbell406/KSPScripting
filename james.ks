@@ -5,7 +5,7 @@ parameter orbitalHeight.
 //Easier file copying
 
 
-set testScript to false.//Testing
+set testScript to true.//Testing
 
 
 
@@ -21,9 +21,6 @@ set files to list("lib.ks","Launch/jamestest.ks","Launch/JamesLaunch.ks",
 For file in files
 {
 copypath ("0:/"+file,"1:").
-print file + "...".
-print "Loaded.".
-wait 0.01.
 }.
 switch to 1.
 
