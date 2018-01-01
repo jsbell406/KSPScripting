@@ -69,24 +69,31 @@ for indivModule in scienceModules
 			{
 				if indivModule:hasdata = true
 				{
-					print indivModule:part:title + " - No new data collected.".
-					print " ".
-					set data to true.
-					wait 1.					
+					print indivModule:part:title.
+					print ".".
+					wait 1.
+					print " - No new data collected.".
+					set data to true.			
 				}
 
 				else
 				{
+					print indivModule:part:title.
+					print ".".
 					indivModule:deploy().
-					wait 2.
+					wait 1.
+					print ".".
+					wait 0.5.
+					print ".".
+					wait 0.5.
 					if indivModule:hasdata
 					{
-						print indivModule:part:title + " - Data collected".
+						print " - Data collected".
 						print " ".
 					}
 					else
 					{
-						print indivModule:part:title + " - Unknown error".
+						print " - Unknown error".
 						print " ".
 					} 
 					wait 1.
@@ -99,26 +106,33 @@ for indivModule in scienceModules
 				set data to false.
 				if indivModule:hasdata
 				{
-					print indivModule:part:title + " - No new data collected".
-					print " ".
-					set data to true.
+					print indivModule:part:title. 
+					print ".".
 					wait 1.
+					print " - No new data collected".
+					set data to true.
 				}
 
 				else	
 				{
+					print indivModule:part:title.
+					print ".".
 					indivModule:deploy().
-					wait 2.
+					wait 1.
+					print ".".
+					wait 0.5.
+					print ".".
+					wait 0.5.
 					if indivModule:hasdata
 					{
-					print indivModule:part:title + " - Data collected".
+					 print " - Data collected".
 					print " ".
 					set data to true.
 					}
 						
 					else
 					{
-						print indivModule:part:title + " - Unknown error".
+						print " - Unknown error".
 						print " ".
 						set data to true.
 					}
@@ -147,6 +161,7 @@ print ".".
 if connectionToCom:isconnected
 {
 	print ">< Connection confirmed ><".
+	wait 0.5.
 	print ".".
 	wait 0.5.
 	print ">< Preparing to transmit ><".
@@ -159,11 +174,12 @@ if connectionToCom:isconnected
 		set transmit to false.
 		if indivModule:rerunnable and indivModule:hasdata
 		{
-			print "Transmitting science from " + indivModule:part:title + ".".
+			print "Transmitting - " + indivModule:part:title + ".".
 			indivModule:transmit().
 			until isTransmitting = false
 			{
 				wait 0.5.
+				print ".".
 			}
 			wait 0.5.
 			print "...Transmission complete.".
