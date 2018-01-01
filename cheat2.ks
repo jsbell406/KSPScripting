@@ -43,8 +43,13 @@ if orbit:periapsis <  orbitAltitude{
 wait 5.
 timWarp(eta:periapsis - 60).
 wait until kuniverse:timewarp:warp = 0.
+<<<<<<< HEAD
 planCircularizationManeuver(orbitAltitude).
 wait 2.
+=======
+setCircOrbNode(orbitAltitude).
+wait 5.
+>>>>>>> 68534607d0c48804f909ec3b1aa00f5b9777c642
 execManeuver(orbitAltitude).
 
 
