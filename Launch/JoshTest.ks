@@ -190,14 +190,14 @@ if connectionToCom:isconnected
 		if indivModule:rerunnable =  false and indivModule:hasdata and transmit = false
 		{
 			print "++ERROR++".
-			print "  " + indivModule:part:title + " cannot be reset. No data has been transmitted.".
+			print indivModule:part:title + " cannot be reset. No data has been transmitted.".
 			print " ".
 			wait 0.5.
 		}
 		if indivModule:hasdata =  false and transmit = false
 		{
 			print "++ERROR++". 
-			print "  " + indivModule:part:title + " has no data to transmit.".
+			print indivModule:part:title + " has no data to transmit.".
 			print " ".
 			wait 0.5.
 		}
