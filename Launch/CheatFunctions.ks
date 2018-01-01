@@ -18,7 +18,7 @@ function planCircularizationManeuver
 			set upOrDown to "up".
 			set targetMan to node(time:seconds+eta:apoapsis, 0, 0, 0).
 		}
-		else if orbit:hasnextpatch or orbit:apoapsis > orbitAltitude {
+		else if orbit:hasnextpatch {
 			set upOrDown to "down".
 			set targetMan to node(time:seconds+eta:periapsis, 0, 0, 0).
 		}
