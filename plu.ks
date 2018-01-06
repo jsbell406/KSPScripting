@@ -1,13 +1,20 @@
+// until 1 < 0
+// {
+clearscreen.
 list parts in allparts.
 print allparts.
 print "-".
-print allparts[3]:modules.
+print allparts[4]:modules.
 print "-".
-print allparts[3]:getmodulebyindex(3):allfields.
+print allparts[4]:getmodulebyindex(1):allactionnames.
 print "-".
-print allparts[3]:getmodulebyindex(3):getfield("comms").
-print "-".
-print " ".
+allparts[4]:getmodulebyindex(1):doaction("retract magnetometer", false).
+// print allparts[4]:getmodulebyindex(1):hasaction("DMModuleScienceAnimate").
+// print "-".
+//}
+// print allparts[3]:getmodulebyindex(3):getfield("comms").
+// print "-".
+// print " ".
 
 // set allAntennas to list().
 // list parts in allparts.

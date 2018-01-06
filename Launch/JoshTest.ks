@@ -58,6 +58,7 @@ for indivSciencePart in scienceParts
 	// print scienceEvents.
 	// print "++".
 
+set datacount to 0.
 set data to false.
 for indivModule in scienceModules
 	{
@@ -70,30 +71,36 @@ for indivModule in scienceModules
 				if indivModule:hasdata = true
 				{
 					print indivModule:part:title.
+					wait 1.
 					print ".".
 					wait 1.
-					print " - No new data collected.".
+					print "- No new data collected.".
 					set data to true.			
 				}
 
 				else
 				{
 					print indivModule:part:title.
+					wait 1.
 					print ".".
 					indivModule:deploy().
 					wait 1.
 					print ".".
-					wait 0.5.
+					wait 1.
 					print ".".
-					wait 0.5.
+					wait 1.
 					if indivModule:hasdata
 					{
-						print " - Data collected".
+						print "- Data collected".
 						print " ".
+						if indivModule:rerunnable 
+						{
+							set datacount to (datacount + 1).
+						}
 					}
 					else
 					{
-						print " - Unknown error".
+						print "- Unknown error".
 						print " ".
 					} 
 					wait 1.
@@ -106,33 +113,39 @@ for indivModule in scienceModules
 				set data to false.
 				if indivModule:hasdata
 				{
-					print indivModule:part:title. 
+					print indivModule:part:title.
+					wait 1. 
 					print ".".
 					wait 1.
-					print " - No new data collected".
+					print "- No new data collected".
 					set data to true.
 				}
 
 				else	
 				{
 					print indivModule:part:title.
+					wait 1.
 					print ".".
 					indivModule:deploy().
 					wait 1.
 					print ".".
-					wait 0.5.
+					wait 1.
 					print ".".
-					wait 0.5.
+					wait 1.
 					if indivModule:hasdata
 					{
-					 print " - Data collected".
-					print " ".
-					set data to true.
+					 	print "- Data collected".
+						print " ".
+						set data to true.
+						if indivModule:rerunnable 
+						{
+							set datacount to (datacount + 1).
+						}
 					}
-						
+
 					else
 					{
-						print " - Unknown error".
+						print "- Unknown error".
 						print " ".
 						set data to true.
 					}
@@ -142,6 +155,7 @@ for indivModule in scienceModules
 		}		
 			set data to false.
 	}
+print ".".
 print ">< Preparing to transmit data ><".
 print ".".
 wait .5.
@@ -149,59 +163,67 @@ print ".".
 wait .5.
 print ".".
 wait .5.
-
-set connectionToCom to homeconnection.
-print ">< Testing connection ><".
-wait 1.5.
-print ". ".
-wait 1.5.
-print ". ".
-wait 2.
-print ".".
-if connectionToCom:isconnected
+if datacount > 0 
 {
-	print ">< Connection confirmed ><".
-	wait 0.5.
+	set connectionToCom to homeconnection.
+	print ">< Testing connection ><".
+	wait 1.5.
+	print ". ".
+	wait 1.5.
+	print ". ".
+	wait 2.
 	print ".".
-	wait 0.5.
-	print ">< Preparing to transmit ><".
-	wait 1.
-	print ".".
-	wait 1.
-	print ".".
-	for indivModule in scienceModules
+	if connectionToCom:isconnected
 	{
-		set transmit to false.
-		if indivModule:rerunnable and indivModule:hasdata
+		print ">< Connection confirmed ><".
+		wait 0.5.
+		print ".".
+		wait 0.5.
+		print ">< Preparing to transmit ><".
+		wait 1.
+		print ".".
+		wait 1.
+		print ".".
+		for indivModule in scienceModules
 		{
-			print "Transmitting - " + indivModule:part:title + ".".
-			indivModule:transmit().
-			until isTransmitting = false
+			set transmit to false.
+			if indivModule:rerunnable and indivModule:hasdata
 			{
+				print "Transmitting - " + indivModule:part:title + ".".
+				indivModule:transmit().
+				until isTransmitting = false
+				{
+					wait 0.5.
+					print ".".
+				}
 				wait 0.5.
-				print ".".
+				print "...Transmission complete.".
+				print " ".
+				wait 0.5.
+				set transmit to true.
 			}
-			wait 0.5.
-			print "...Transmission complete.".
-			print " ".
-			wait 0.5.
-			set transmit to true.
-		}
-		if indivModule:rerunnable =  false and indivModule:hasdata and transmit = false
-		{
-			print "++ERROR++".
-			print indivModule:part:title + " cannot be reset. No data has been transmitted.".
-			print " ".
-			wait 0.5.
-		}
-		if indivModule:hasdata =  false and transmit = false
-		{
-			print "++ERROR++". 
-			print indivModule:part:title + " has no data to transmit.".
-			print " ".
-			wait 0.5.
+			if indivModule:rerunnable =  false and indivModule:hasdata and transmit = false
+			{
+				print "++ERROR++".
+				print indivModule:part:title + " cannot be reset. No data has been transmitted.".
+				print " ".
+				wait 0.5.
+			}
+			if indivModule:hasdata =  false and transmit = false
+			{
+				print "++ERROR++". 
+				print indivModule:part:title + " has no data to transmit.".
+				print " ".
+				wait 0.5.
+			}
 		}
 	}
+}
+else
+{
+	wait 1.
+	print "++ERROR++".
+	print "++No data to transmit++".
 }
 
 //Ideally returns a boolean.
