@@ -9,8 +9,8 @@ LOCAL label IS gui:ADDLABEL("run test script").
 SET label:STYLE:ALIGN TO "CENTER".
 SET label:STYLE:HSTRETCH TO True. // Fill horizontally
 LOCAL ok TO gui:ADDBUTTON("OK").
-LOCAL val IS gui:ADDTEXTFIELD("150000").
-LOCAL val2 IS gui:ADDTEXTFIELD("15000").
+//LOCAL val IS gui:ADDTEXTFIELD("150000").
+//LOCAL val2 IS gui:ADDTEXTFIELD("15000").
 //LOCAL t TO gui:ADDBUTTON("throt").
 
 // Show the GUI.
@@ -21,8 +21,8 @@ UNTIL isDone
 {
   if (ok:TAKEPRESS){
       gui:HIDE().
-      run cheatlaunch.ks(val:TEXT:toscalar).
-      run cheat2.ks(val2:TEXT:toscalar).
+      //run cheatlaunch.ks(val:TEXT:toscalar).
+      //run cheat2.ks(val2:TEXT:toscalar).
       run ml.ks.
 //      run josh.ks(val:TEXT:toscalar).
       SET isDone TO TRUE.
