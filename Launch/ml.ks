@@ -10,29 +10,30 @@ until airspeed < 50 {
 
 lock throttle to 0.
 
+set activeThrottle to 0.
 
-
-wait until alt:radar < 2500.
+wait until alt:radar < 3000.
 
 until airspeed < 10 
 {
 	thrustCalculations().
-	set activeThrottle to adjustThrottle(5,activeThrottle).
+	set activeThrottle to adjustThrottle(7.5,activeThrottle).
 	lock throttle to activeThrottle.
 }
 
-until alt:radar < 10 
+until (SHIP:STATUS = "Landed")
 {
-	if airspeed > 3 
+	when airspeed < 5 then lock steering to heading(90,90).
+	if airspeed > 4 
 	{
 		thrustCalculations().
-		set activeThrottle to adjustThrottle(1.05,activeThrottle).
+		set activeThrottle to adjustThrottle(1.1,activeThrottle).
 		
 	}
-	if airspeed < 3
+	if airspeed < 4
 	{
 		thrustCalculations().
-		set activeThrottle to adjustThrottle(.95,activeThrottle).
+		set activeThrottle to adjustThrottle(.9,activeThrottle).
 	}
 }
 lock throttle to 0.
