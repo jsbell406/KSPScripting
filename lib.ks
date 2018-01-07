@@ -14,4 +14,5 @@ function lib
 	RUN ONCE JamesFunctions.ks(orbitAltitude).
 	RUN ONCE ManeuverFunctions.ks(orbitAltitude).
 	RUN ONCE CheatFunctions.ks(orbitAltitude).
+	RUN Once ShaneFunctions.ks(orbitAltitude).
 	}
